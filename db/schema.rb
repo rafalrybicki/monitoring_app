@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_29_181814) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_30_101922) do
   create_table "days", force: :cascade do |t|
     t.integer "user_id", null: false
     t.date "date", null: false
-    t.integer "number_of_tasks", default: 0
-    t.integer "number_of_completed_tasks", default: 0
+    t.integer "total_tasks", default: 0
+    t.integer "completed_tasks", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_days_on_date"
