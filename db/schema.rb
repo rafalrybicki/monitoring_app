@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_30_101922) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_185610) do
   create_table "days", force: :cascade do |t|
     t.integer "user_id", null: false
     t.date "date", null: false
@@ -23,14 +23,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_30_101922) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer "original_id", null: false
     t.integer "user_id", null: false
-    t.integer "day_id", null: false
-    t.string "content"
-    t.boolean "completed"
+    t.string "content", null: false
+    t.boolean "completed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["day_id"], name: "index_tasks_on_day_id"
+    t.date "date", null: false
+    t.boolean "cancelled", default: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -47,6 +46,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_30_101922) do
   end
 
   add_foreign_key "days", "users"
-  add_foreign_key "tasks", "days"
   add_foreign_key "tasks", "users"
 end
