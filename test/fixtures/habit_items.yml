@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  habit: one
+  date: 2022-08-02
+  value: 1
+
+two:
+  habit: two
+  date: 2022-08-02
+  value: 1
