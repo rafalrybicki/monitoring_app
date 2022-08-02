@@ -1,0 +1,17 @@
+<%= turbo_frame_tag task do %>
+  <div>
+    <%= button_to 'toggle', day_task_path(task.date, task, task: { completed: !task.completed }), method: :patch %>
+
+    [<%= task.completed %>]
+
+    <%= task.content %>
+
+    <%= link_to 'edit', edit_day_task_path(task.date, task) %>
+
+    <%= button_to 'delete',
+                  day_task_path(task.date, task),
+                  form: { data: { turbo_confirm: "Are you sure?" } },
+                  method: :delete %>
+  </div>
+  <br>
+<% end %>

@@ -10,17 +10,16 @@ completed <%= @day.completed_tasks %>
 <% if @overdue_tasks.any? %>
   <p>overdue tasks</p>
   <div>`
-    <% @overdue_tasks.each do |task| %>
-      <%= task.content %>
-      <br>
-    <% end %>
+    <%= render @overdue_tasks %>
   </div>
 <% end %>
 
 <br>
-<div>
-  <% @tasks.each do |task| %>
-    <%= task.content %>
-    <br>
-  <% end %>
-</div>
+<%= turbo_frame_tag @tasks do %>
+  <%= render @tasks %>
+<% end %>
+
+<br>
+<%= turbo_frame_tag Task.new do %>
+  <%= link_to "New task", new_day_task_path(@day.id) %>
+<% end %>

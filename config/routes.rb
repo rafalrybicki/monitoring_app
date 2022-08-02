@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-
   root 'days#today'
-  resources :days, only: %i[index show], param: :date
+  
+  resources :days, only: %i[index show], param: :date do
+    resources :tasks, except: %i[index show]
+  end
+
+  devise_for :users
 end
