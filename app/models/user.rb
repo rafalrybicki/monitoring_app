@@ -5,16 +5,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :days, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
-  after_create_commit :generate_days
+  after_create :generate_year
 
   private
 
-  def generate_days
+  def generate_year
     today = Date.today
 
     365.times do |number|
-      Day.create!(user_id: id, date: today + number.days)
+      Day.create!(user_id: id, date: (today + number.days))
     end
   end
 end

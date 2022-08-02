@@ -5,3 +5,22 @@
 tasks <%= @day.total_tasks %>
 <br>
 completed <%= @day.completed_tasks %>
+<br>
+
+<% if @overdue_tasks.any? %>
+  <p>overdue tasks</p>
+  <div>`
+    <% @overdue_tasks.each do |task| %>
+      <%= task.content %>
+      <br>
+    <% end %>
+  </div>
+<% end %>
+
+<br>
+<div>
+  <% @tasks.each do |task| %>
+    <%= task.content %>
+    <br>
+  <% end %>
+</div>
