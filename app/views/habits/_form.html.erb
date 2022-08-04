@@ -1,0 +1,12 @@
+<%= turbo_frame_tag @habit do %>
+  <%= form_with model: @habit do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+  <%= link_to 'Back', :back %>
+<% end %>

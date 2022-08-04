@@ -13,3 +13,42 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    max-width: 800px;
+  }
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+td.green {
+  background-color: green;
+}
+
+td.red {
+  background-color: red;
+}
+
+.flash,
+nav {
+  position: absolute;
+}
+
+.flash {
+  top: 0;
+  left: 40%;
+}
+
+nav {
+  top: 0;
+  left: 5%;
+}

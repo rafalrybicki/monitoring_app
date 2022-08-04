@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :days, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  has_many :habits, dependent: :destroy
 
   after_create :generate_year
 

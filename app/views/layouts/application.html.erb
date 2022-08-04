@@ -11,8 +11,28 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="flash">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
+    <nav>
+      <ul>
+        <li>
+          <%= link_to 'Today', root_path %>
+        </li>
+        <li>
+          <%= link_to 'Tomorrow', day_path(Date.tomorrow.to_s) %>
+        </li>
+        <li>
+          <%= link_to 'Habits', habits_path %>
+        </li>
+        <li>
+          <%= link_to 'Days', days_path %>
+        </li>
+      </ul>
+    </nav>
+    <div class="conatainer">
+      <%= yield %>
+    </div>
   </body>
 </html>

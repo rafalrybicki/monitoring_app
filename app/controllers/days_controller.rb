@@ -3,7 +3,7 @@ class DaysController < ApplicationController
   before_action :set_tasks
 
   def index
-    @days = current_user.days.all
+    @days = current_user.days
   end
 
   def show; end

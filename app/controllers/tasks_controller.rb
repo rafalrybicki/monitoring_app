@@ -21,7 +21,7 @@ class TasksController < ApplicationController
     redirect_to @day
   end
 
-  def delete; end
+  def destroy; end
 
   private
 

@@ -1,0 +1,18 @@
+<h1>Habits</h1>
+
+<table>
+  <tr>
+    <th>habit</th>
+    <% @dates.each do |date| %>
+      <th>
+        <%= date.day %>
+      </th>
+    <% end %>
+  </tr>
+  <%= turbo_frame_tag @habits do %>
+    <%= render @habits %>
+  <% end %>
+</table>
+<%= turbo_frame_tag Habit.new do %>
+  <%= link_to "New habit", new_habit_path %>
+<% end %>
