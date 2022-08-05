@@ -8,11 +8,11 @@
                 <%= habit_item.quantity < habit.daily_target && habit_item.date < Date.today %>">
         <%= button_to '+', habit_habit_item_path(habit, habit_item, habit_item: { quantity: habit_item.quantity + 1 }),
                       method: :patch,
-                      disabled: habit_item.date > @today || habit_item.date < @today %>
+                      disabled: habit_item.date != @today && habit.daily_target > 0 %>
         <%= habit_item.quantity %>
         <%= button_to '-', habit_habit_item_path(habit, habit_item, habit_item: { quantity: habit_item.quantity - 1 }),
                       method: :patch,
-                      disabled: habit_item.date > @today || habit_item.date < @today %>
+                      disabled: habit_item.date != @today && habit.daily_target > 0 %>
       </td>
     <% end %>
   </tr>

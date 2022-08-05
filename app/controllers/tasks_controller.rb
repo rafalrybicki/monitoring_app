@@ -9,7 +9,9 @@ class TasksController < ApplicationController
   def create
     @task = @day.tasks.new(task_params)
     @task.user_id = current_user.id
-    @task.save
+    @task.save!
+
+    @day.increment!(:total_tasks)
 
     redirect_to @day
   end
@@ -17,15 +19,27 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
-    @task.update(task_params)
+    prev_completed = @task.completed
+    @task.update!(task_params)
+
+    if prev_completed && !@task.completed
+      @day.decrement!(:completed_tasks)
+    elsif !prev_completed && @task.completed
+      @day.increment!(:completed_tasks)
+    end
+
     redirect_to @day
   end
 
-  def destroy; end
+  def destroy
+    @task.delete
+    @day.decrement!(:total_tasks)
+  end
 
   def reschedule
     @task.update!(cancelled: true)
     current_user.tasks.create!(content: @task.content, date: params[:new_date]) if params[:new_date]
+    @day.increment!(:total_tasks)
 
     redirect_to @day
   end

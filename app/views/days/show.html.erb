@@ -2,14 +2,29 @@
   <%= @day.date %>
 </h1>
 
-tasks <%= @day.total_tasks %>
-<br>
-completed <%= @day.completed_tasks %>
-<br>
+<div>
+  total tasks = <%= @day.total_tasks %>
+  <br>
+  completed tasks = <%= @day.completed_tasks %>
+</div>
 
-<% if @overdue_tasks %>
+<nav>
+  <%= link_to 'prev day', day_path(@day.date - 1.day) %>
+  <%= link_to 'next day', day_path(@day.date + 1.day) %>
+</nav>
+
+<% if @day.total_tasks == 0 %>
+  empty state
+<% end %>
+
+<% if @day.date <= Date.today && @day.total_tasks > 0 %>
+  <%= day_percentage @day %>
+  <br>
+<% end %>
+
+<% if @overdue_tasks && @overdue_tasks.any? %>
   <div class="red">
-    <p>overdue tasks</p>
+    <p>reschedule</p>
     <div>
       <% @overdue_tasks.each do |task| %>
         <%= render task, view_date: @day.date %>
