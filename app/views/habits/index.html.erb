@@ -12,6 +12,12 @@
   <%= turbo_frame_tag @habits do %>
     <%= render @habits %>
   <% end %>
+  <tr>
+    <td>days</td>
+    <% @days.each do |day| %>
+      <td><%= day.completion %></td>
+    <% end %>
+  </tr>
 </table>
 <%= turbo_frame_tag Habit.new do %>
   <%= link_to "New habit", new_habit_path %>

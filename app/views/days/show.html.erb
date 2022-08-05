@@ -18,7 +18,7 @@
 <% end %>
 
 <% if @day.date <= Date.today && @day.total_tasks > 0 %>
-  <%= day_percentage @day %>
+  <%= @day.completion %>
   <br>
 <% end %>
 

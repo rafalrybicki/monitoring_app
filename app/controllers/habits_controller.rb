@@ -7,7 +7,9 @@ class HabitsController < ApplicationController
 
     @habits = Habit.eager_load(:habit_items)
                    .order(:date)
-                   .where('habit_items.date >= ? AND habit_items.date <= ?', start_date, end_date).all
+                   .where('habit_items.date >= ? AND habit_items.date <= ?', start_date, end_date)
+
+    @days = current_user.days.where('date >= ? AND date < ?', start_date, Date.today)
   end
 
   def new
