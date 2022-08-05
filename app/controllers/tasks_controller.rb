@@ -23,6 +23,13 @@ class TasksController < ApplicationController
 
   def destroy; end
 
+  def reschedule
+    @task.update!(cancelled: true)
+    current_user.tasks.create!(content: @task.content, date: params[:new_date]) if params[:new_date]
+
+    redirect_to @day
+  end
+
   private
 
   def set_day
@@ -34,6 +41,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:content, :completed)
+    params.require(:task).permit(:content, :completed, :cancelled)
   end
 end

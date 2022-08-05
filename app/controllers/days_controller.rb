@@ -9,6 +9,7 @@ class DaysController < ApplicationController
   def show; end
 
   def today
+    @overdue_tasks = current_user.tasks.not_completed
     render :show
   end
 
@@ -21,6 +22,5 @@ class DaysController < ApplicationController
 
   def set_tasks
     @tasks = @day.tasks
-    @overdue_tasks = current_user.tasks.where('date < ?', Date.today).where('cancelled = ?', false)
   end
 end

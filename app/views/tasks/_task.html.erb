@@ -1,17 +1,34 @@
 <%= turbo_frame_tag task do %>
   <div>
-    <%= button_to 'toggle', day_task_path(task.date, task, task: { completed: !task.completed }), method: :patch %>
+    [<%= task.completed %>] -- <%= task.content %> -- <%= task.date %>
+    <br>
 
-    [<%= task.completed %>]
+    <% if task.today? %>
+      <%= button_to 'toggle',
+                    day_task_path(task.date, task, task: { completed: !task.completed }),
+                    method: :patch %>
+    <% end %>
 
-    <%= task.content %>
+    <% if task.future? %>
+      <%= link_to 'edit', edit_day_task_path(task.date, task) %>
 
-    <%= link_to 'edit', edit_day_task_path(task.date, task) %>
+      <%= button_to 'delete',
+                    day_task_path(task.date, task),
+                    form: { data: { turbo_confirm: "Are you sure?" } },
+                    method: :delete %>
+    <% end %>
 
-    <%= button_to 'delete',
-                  day_task_path(task.date, task),
-                  form: { data: { turbo_confirm: "Are you sure?" } },
-                  method: :delete %>
+    <% if task.overdue?(view_date) %>
+      <%= button_to 'cancel',
+                    day_task_path(task.date, task),
+                    method: :patch %>
+      <%= button_to 'Add to today',
+                    reschedule_day_task_path(task.date, task.id, { new_date: Date.today }),
+                    method: :patch %>
+      <%= button_to 'Add to tomorrow',
+                    reschedule_day_task_path(task.date, task.id, { new_date: Date.tomorrow }),
+                    method: :patch %>
+    <% end %>
   </div>
   <br>
 <% end %>
