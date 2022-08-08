@@ -1,6 +1,7 @@
 class DaysController < ApplicationController
-  before_action :set_day
-  before_action :set_tasks
+  before_action :set_day, except: :index
+  before_action :set_tasks, except: :index
+  before_action :set_habits, except: :index
 
   def index
     @days = current_user.days
@@ -17,10 +18,14 @@ class DaysController < ApplicationController
 
   def set_day
     date = params[:date] || Date.today
-    @day = current_user.days.find(date)
+    @day = current_user.days.preload(:tasks, :habit_items).find(date)
   end
 
   def set_tasks
     @tasks = @day.tasks
+  end
+
+  def set_habits
+    @habits = @day.habit_items.left_outer_joins(:habit).select(:id, :date, :quantity, :name, :daily_target)
   end
 end

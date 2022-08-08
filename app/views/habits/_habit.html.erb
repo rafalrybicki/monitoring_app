@@ -7,12 +7,10 @@
       <td class="<%= 'green' if (habit_item.quantity >= habit.daily_target && habit.daily_target > 0) %> 
                 <%= habit_item.quantity < habit.daily_target && habit_item.date < Date.today %>">
         <%= button_to '+', habit_habit_item_path(habit, habit_item, habit_item: { quantity: habit_item.quantity + 1 }),
-                      method: :patch,
-                      disabled: habit_item.date != @today && habit.daily_target > 0 %>
+                      method: :patch %>
         <%= habit_item.quantity %>
         <%= button_to '-', habit_habit_item_path(habit, habit_item, habit_item: { quantity: habit_item.quantity - 1 }),
-                      method: :patch,
-                      disabled: habit_item.date != @today && habit.daily_target > 0 %>
+                      method: :patch %>
       </td>
     <% end %>
   </tr>
