@@ -1,26 +1,12 @@
 <h1>
-  <%= @day.date %>
+  <%= day_title @day.date %>
+
+  <% if @day.date <= Date.today && (@day.total_tasks + @habits.size ) > 0 %>
+    <span>
+      <%= day_completion(@day.total_tasks, @day.completed_tasks, @total_habits, @completed_habits ) %>%
+    </span>
+  <% end %>
 </h1>
-
-<div>
-  total tasks = <%= @day.total_tasks %>
-  <br>
-  completed tasks = <%= @day.completed_tasks %>
-</div>
-
-<nav>
-  <%= link_to 'prev day', day_path(@day.date - 1.day) %>
-  <%= link_to 'next day', day_path(@day.date + 1.day) %>
-</nav>
-
-<% if @day.total_tasks == 0 %>
-  empty state
-<% end %>
-
-<% if @day.date <= Date.today && @day.total_tasks > 0 %>
-  <%= @day.completion %>
-  <br>
-<% end %>
 
 <% if @overdue_tasks %>
   <div class="red">
@@ -30,17 +16,20 @@
   </div>
 <% end %>
 
-<br>
 <%= turbo_frame_tag @tasks do %>
   <% @tasks.each do |task| %>
     <%= render task, view_date: @day.date %>
   <% end %>
 <% end %>
-<br>
 
 <% if @habits.any? %>
   <% @habits.each do |habit| %>
     <%= habit.name %>
+
+    <% if habit.daily_target > 0 %>
+      <%= habit.quantity %>/<%= habit.daily_target %>
+    <% end %>
+
     <br>
   <% end %>
 <% end %>
@@ -48,6 +37,6 @@
 
 <% if @day.date >= Date.today %>
   <%= turbo_frame_tag Task.new do %>
-    <%= link_to "New task", new_day_task_path(@day) %>
+    <%= link_to "Add new task", new_day_task_path(@day) %>
   <% end %>
 <% end %>

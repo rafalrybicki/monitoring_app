@@ -26,6 +26,8 @@ class HabitsController < ApplicationController
 
   def edit
     @habit = Habit.find(params[:id])
+
+    authorize_user(@habit.user_id)
   end
 
   def update; end

@@ -18,6 +18,12 @@
     <nav>
       <ul>
         <li>
+          <%= link_to 'prev day', day_path(param_date - 1.day) %>
+        </li>
+        <li>
+          <%= link_to 'next day', day_path(param_date + 1.day) %>
+        </li>
+        <li>
           <%= link_to 'Today', root_path %>
         </li>
         <li>
