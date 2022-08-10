@@ -28,14 +28,19 @@ class DaysController < ApplicationController
   end
 
   def set_habits
-    @habits = @day.habit_items.joins(:habit).select(:id, :date, :quantity, :name, :daily_target)
+    day_habits = @day.habit_items.joins(:habit).select(:id, :date, :quantity, :name, :daily_target)
+    @monitored = []
+    @habits = []
     @total_habits = 0
     @completed_habits = 0
 
-    @habits.map do |habit|
+    day_habits.map do |habit|
       if habit.daily_target > 0
+        @habits << habit
         @total_habits += habit.daily_target
         @completed_habits += habit.quantity <= habit.daily_target ? habit.quantity : habit.daily_target
+      else
+        @monitored << habit
       end
     end
   end

@@ -7,31 +7,46 @@
     </span>
   <% end %>
 </h1>
+<br>
 
 <% if @overdue_tasks %>
   <div>
+    <h2>Overdue tasks</h2>
     <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
   </div>
+  <br>
 <% end %>
 
-<%= turbo_frame_tag @tasks do %>
-  <% @tasks.each do |task| %>
-    <%= render task, view_date: @day.date %>
+<% if @tasks.any? %>
+  <h2>Tasks</h2>
+
+  <%= turbo_frame_tag @tasks do %>
+    <% @tasks.each do |task| %>
+      <%= render task, view_date: @day.date %>
+    <% end %>
   <% end %>
 <% end %>
 
 <% if @habits.any? %>
+  <h2>Habits</h2>
+
   <% @habits.each do |habit| %>
     <%= habit.name %>
-
-    <% if habit.daily_target > 0 %>
-      <%= habit.quantity %>/<%= habit.daily_target %>
-    <% end %>
-
+    <%= habit.quantity %>/<%= habit.daily_target %>
     <br>
   <% end %>
 <% end %>
 <br>
+
+<% if @monitored.any? %>
+  <h2>Monitored</h2>
+
+  <% @monitored.each do |monitored| %>
+    <%= monitored.name %> - <%= monitored.quantity %>
+    <br>
+  <% end %>
+  <br>
+<% end %>
 
 <% if @day.date >= Date.today %>
   <%= turbo_frame_tag Task.new do %>
