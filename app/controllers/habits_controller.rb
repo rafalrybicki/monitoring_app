@@ -9,7 +9,21 @@ class HabitsController < ApplicationController
                    .order(:date)
                    .where('habit_items.date >= ? AND habit_items.date <= ?', start_date, end_date)
 
-    @days = current_user.days.where('date >= ? AND date < ?', start_date, Date.today)
+    @days_habits = []
+    @days = current_user.days.where('date >= ? AND date <= ?', start_date, Date.today)
+    @days.size.times do |index|
+      @days_habits[index] = {
+        total: 0,
+        completed: 0
+      }
+
+      @habits.map do |habit|
+        if habit.daily_target > 0
+          @days_habits[index][:total] += habit.daily_target
+          @days_habits[index][:completed] += habit.habit_items[index].quantity <= habit.daily_target ? habit.habit_items[index].quantity : habit.daily_target
+        end
+      end
+    end
   end
 
   def new

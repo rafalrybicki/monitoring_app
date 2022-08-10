@@ -1,5 +1,3 @@
-<h1>Habits</h1>
-
 <table>
   <tr>
     <th>habit</th>
@@ -17,12 +15,22 @@
   <% if false %>
     <tr>
       <td>days</td>
-      <% @days.each do |day| %>
-        <td><%= day.completion %></td>
+      <% @days.each_with_index do |day, index| %>
+        <td><%= day_completion(day.total_tasks,day.completed_tasks) %></td>
       <% end %>
     </tr>
   <% end %>
+
+  <tr>
+    <td>day %</td>
+    <% @days.each_with_index do |day, index| %>
+      <td>
+        <%= day_completion(day.total_tasks,day.completed_tasks, @days_habits[index][:total], @days_habits[index][:completed]) %>%
+      </td>
+    <% end %>
+  </tr>
 </table>
+<br>
 <%= turbo_frame_tag Habit.new do %>
   <%= link_to "New habit", new_habit_path %>
 <% end %>

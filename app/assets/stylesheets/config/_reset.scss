@@ -29,8 +29,6 @@ a {
   color: inherit;
 }
 
-
-
 table,
 th,
 td {
@@ -38,12 +36,13 @@ td {
   border: 1px solid black;
 }
 
-td.green {
-  background-color: green;
-}
+td {
+  min-width: 40px;
+  text-align: center;
 
-.red {
-  background-color: red;
+  &.green {
+    background-color: green;
+  }
 }
 
 .flash,
