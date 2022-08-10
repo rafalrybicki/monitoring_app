@@ -9,10 +9,8 @@
 </h1>
 
 <% if @overdue_tasks %>
-  <div class="red">
-    <% @overdue_tasks.each do |task| %>
-      <%= render task, view_date: @day.date %>
-    <% end %>
+  <div>
+    <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
   </div>
 <% end %>
 

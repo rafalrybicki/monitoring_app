@@ -7,7 +7,9 @@ class DaysController < ApplicationController
     @days = current_user.days
   end
 
-  def show; end
+  def show
+    @overdue_tasks = current_user.tasks.not_completed if @day.date >= Date.today
+  end
 
   def today
     @overdue_tasks = current_user.tasks.not_completed

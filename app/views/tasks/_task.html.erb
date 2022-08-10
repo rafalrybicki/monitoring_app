@@ -17,18 +17,6 @@
                     form: { data: { turbo_confirm: "Are you sure?" } },
                     method: :delete %>
     <% end %>
-
-    <% if task.overdue?(view_date) %>
-      <%= button_to 'cancel',
-                    day_task_path(task.date, task.id, task: { cancelled: true }),
-                    method: :patch %>
-      <%= button_to 'Add to today',
-                    day_task_reschedule_path(task.date, task.id, { new_date: Date.today }),
-                    method: :patch %>
-      <%= button_to 'Add to tomorrow',
-                    day_task_reschedule_path(task.date, task.id, { new_date: Date.tomorrow }),
-                    method: :patch %>
-    <% end %>
   </div>
   <br>
 <% end %>
