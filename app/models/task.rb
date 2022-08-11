@@ -6,12 +6,12 @@ class Task < ApplicationRecord
 
   scope :not_completed, -> { where('date < ? AND completed = ? AND cancelled = ?', Date.today, false, false) }
 
-  def today?
-    date == Date.today
+  def not_today?
+    date != Date.today
   end
 
-  def overdue?(view_date)
-    view_date > date && date < Date.today && completed == false && cancelled == false
+  def not_completed?
+    date < Date.today && completed == false
   end
 
   def future?

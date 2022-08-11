@@ -1,23 +1,27 @@
 <%= turbo_frame_tag task do %>
-  <div>
-    <input type="checkbox" <%= "checked" if task.completed %>>
-    <% if task.date == Date.today %>
-      <%= button_to task.content,
-                    day_task_path(task.date, task, task: { completed: !task.completed }),
-                    method: :patch %>
-    <% else %>
+  <div class="task<%= ' task--not-completed' if task.not_completed? %><%= ' task--completed' if task.completed? %>">
+
+    <%= button_to day_task_path(task.date, task, task: { completed: !task.completed }),
+                  method: :patch, 
+                  class: "task__content",
+                  disabled: task.not_today? do %>
+      <%= bootstrap_icon (task.completed ? "check-square-fill" : task.not_completed? ? "x-square-fill" : "square") %>
       <%= task.content %>
     <% end %>
 
-    <% if task.future? %>
-      <%= button_to 'edit',
-                    edit_day_task_path(task.date, task),
-                    method: :get %>
+    <%= button_to edit_day_task_path(task.date, task),
+                  method: :get,
+                  class: "action-btn" do %>
+      <%= bootstrap_icon "pencil-square" %>
+    <% end %>
 
-      <%= button_to 'delete',
-                    day_task_path(task.date, task),
+    <% if task.future? %>
+      <%= button_to day_task_path(task.date, task),
+                    method: :delete,
                     form: { data: { turbo_confirm: "Are you sure?" } },
-                    method: :delete %>
+                    class: "action-btn" do %>
+        <%= bootstrap_icon "trash3-fill" %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

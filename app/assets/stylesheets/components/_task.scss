@@ -1,0 +1,48 @@
+.task {
+  display: flex;
+
+  &--completed {
+    color: green;
+  }
+
+  &--not-completed {
+    color: red;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    .button_to .action-btn {
+      opacity: 1;
+    }
+  }
+
+  svg {
+    margin-right: 5px;
+  }
+
+  .button_to {
+
+    &:first-of-type,
+    .task__content {
+      color: inherit;
+      flex: 1;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      border: none;
+      font-size: 14px;
+
+      &.action-btn {
+        margin-left: 4px;
+        opacity: 0;
+      }
+    }
+  }
+}
