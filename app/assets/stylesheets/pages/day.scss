@@ -1,0 +1,11 @@
+.day {
+  position: relative;
+  min-width: 400px;
+
+  &__links {
+    position: absolute;
+    top: 0;
+    left: -50px;
+    font-size: 30px;
+  }
+}

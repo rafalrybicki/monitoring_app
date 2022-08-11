@@ -1,56 +1,63 @@
-<h1>
-  <%= day_title @day.date %>
-
-  <% if @day.date <= Date.today && (@day.total_tasks + @habits.size ) > 0 %>
-    <span>
-      <%= day_completion(@day.total_tasks, @day.completed_tasks, @total_habits, @completed_habits ) %>%
-    </span>
-  <% end %>
-</h1>
-<br>
-
-<% if @overdue_tasks && @overdue_tasks.any? %>
-  <div>
-    <h2>Overdue tasks</h2>
-    <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
+<div class="day">
+  <div class="day__links">
+    <%= link_to '<', day_path(param_date - 1.day) %>
+    <%= link_to '>', day_path(param_date + 1.day) %>
   </div>
+  <h1>
+    <%= day_title @day.date %>
+
+    <% if @day.date <= Date.today && (@day.total_tasks + @habits.size ) > 0 %>
+      <span>
+        <%= day_completion(@day.total_tasks, @day.completed_tasks, @total_habits, @completed_habits ) %>%
+      </span>
+    <% end %>
+  </h1>
   <br>
-<% end %>
 
-<% if @tasks.any? %>
-  <h2>Tasks</h2>
+  <% if @overdue_tasks && @overdue_tasks.any? %>
+    <div>
+      <h2>Overdue tasks</h2>
+      <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
+    </div>
+    <br>
+  <% end %>
 
-  <%= turbo_frame_tag @tasks do %>
-    <% @tasks.each do |task| %>
-      <%= render task, view_date: @day.date %>
+  <% if @tasks.any? %>
+    <h2>Tasks</h2>
+
+    <%= turbo_frame_tag @tasks do %>
+      <% @tasks.each do |task| %>
+        <%= render task, view_date: @day.date %>
+      <% end %>
+    <% end %>
+    <br>
+  <% end %>
+
+  <% if @habits.any? %>
+    <h2>Habits</h2>
+
+    <% @habits.each do |habit| %>
+      <%= habit.name %>
+      <%= habit.quantity %>/<%= habit.daily_target %>
+      <br>
     <% end %>
   <% end %>
   <br>
-<% end %>
 
-<% if @habits.any? %>
-  <h2>Habits</h2>
+  <% if @monitored.any? %>
+    <h2>Monitored</h2>
 
-  <% @habits.each do |habit| %>
-    <%= habit.name %>
-    <%= habit.quantity %>/<%= habit.daily_target %>
+    <% @monitored.each do |monitored| %>
+      <%= monitored.name %> - <%= monitored.quantity %>
+      <br>
+    <% end %>
     <br>
   <% end %>
-<% end %>
-<br>
 
-<% if @monitored.any? %>
-  <h2>Monitored</h2>
-
-  <% @monitored.each do |monitored| %>
-    <%= monitored.name %> - <%= monitored.quantity %>
-    <br>
+  <% if @day.date >= Date.today %>
+    <%= turbo_frame_tag Task.new do %>
+      <%= link_to "Add new task", new_day_task_path(@day) %>
+    <% end %>
   <% end %>
-  <br>
-<% end %>
 
-<% if @day.date >= Date.today %>
-  <%= turbo_frame_tag Task.new do %>
-    <%= link_to "Add new task", new_day_task_path(@day) %>
-  <% end %>
-<% end %>
+</div>

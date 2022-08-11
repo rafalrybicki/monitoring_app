@@ -1,0 +1,14 @@
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding: 10px;
+  font-weight: bold;
+  color: white;
+  background-color: blue;
+
+  li {
+    margin-bottom: 10px;
+  }
+}
