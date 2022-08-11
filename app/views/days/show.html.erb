@@ -9,7 +9,7 @@
 </h1>
 <br>
 
-<% if @overdue_tasks %>
+<% if @overdue_tasks && @overdue_tasks.any? %>
   <div>
     <h2>Overdue tasks</h2>
     <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
@@ -25,6 +25,7 @@
       <%= render task, view_date: @day.date %>
     <% end %>
   <% end %>
+  <br>
 <% end %>
 
 <% if @habits.any? %>

@@ -1,16 +1,18 @@
 <%= turbo_frame_tag task do %>
   <div>
-    [<%= task.completed %>] -- <%= task.content %> -- <%= task.date %>
-    <br>
-
-    <% if task.today? %>
-      <%= button_to 'toggle',
+    <input type="checkbox" <%= "checked" if task.completed %>>
+    <% if task.date == Date.today %>
+      <%= button_to task.content,
                     day_task_path(task.date, task, task: { completed: !task.completed }),
                     method: :patch %>
+    <% else %>
+      <%= task.content %>
     <% end %>
 
     <% if task.future? %>
-      <%= link_to 'edit', edit_day_task_path(task.date, task) %>
+      <%= button_to 'edit',
+                    edit_day_task_path(task.date, task),
+                    method: :get %>
 
       <%= button_to 'delete',
                     day_task_path(task.date, task),
@@ -18,5 +20,4 @@
                     method: :delete %>
     <% end %>
   </div>
-  <br>
 <% end %>

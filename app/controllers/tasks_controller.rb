@@ -52,7 +52,7 @@ class TasksController < ApplicationController
 
   def set_task
     @task = @day.tasks.find(params[:id])
-    
+
     authorize_user(@task.user_id)
   end
 
