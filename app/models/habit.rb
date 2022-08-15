@@ -1,6 +1,6 @@
 class Habit < ApplicationRecord
   belongs_to :user
-  has_many :habit_items # delete items but only where date >= today
+  has_many :items, class_name: 'HabitItem' # delete items but only where date >= today
   validates :name, presence: true, length: { minimum: 2 }
 
   after_create :generate_habit_items

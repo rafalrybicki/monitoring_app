@@ -1,0 +1,7 @@
+<td class="<%= habit_item_css_class(target, habit_item) %>">
+  <% if habit_item %>
+    <%= button_to '+', habit_habit_item_path(habit_item.habit_id, habit_item, habit_item: { quantity: habit_item.quantity + 1 }), method: :patch %>
+    <%= habit_item.quantity %>
+    <%= button_to '-', habit_habit_item_path(habit_item.habit_id, habit_item, habit_item: { quantity: habit_item.quantity - 1 }), method: :patch %>
+  <% end %>
+</td>

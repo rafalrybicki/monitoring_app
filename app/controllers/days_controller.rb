@@ -19,8 +19,8 @@ class DaysController < ApplicationController
   private
 
   def set_day
-    date = params[:date] || Date.today
-    @day = current_user.days.preload(:tasks, :habit_items).find(date)
+    date = param_date
+    @day = current_user.days.preload(:tasks, :habits).find(date)
   end
 
   def set_tasks
@@ -28,7 +28,7 @@ class DaysController < ApplicationController
   end
 
   def set_habits
-    day_habits = @day.habit_items.joins(:habit).select(:id, :date, :quantity, :name, :daily_target)
+    day_habits = @day.habits.joins(:habit).select(:id, :date, :quantity, :name, :daily_target)
     @monitored = []
     @habits = []
     @total_habits = 0

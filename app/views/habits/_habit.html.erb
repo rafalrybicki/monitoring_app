@@ -3,15 +3,8 @@
     <td>
       <%= habit.name %>
     </td>
-    <% habit.habit_items.each do |habit_item| %>
-      <td class="<%= 'green' if (habit_item.quantity >= habit.daily_target && habit.daily_target > 0) %> 
-                <%= habit_item.quantity < habit.daily_target && habit_item.date < Date.today %>">
-        <%= button_to '+', habit_habit_item_path(habit, habit_item, habit_item: { quantity: habit_item.quantity + 1 }),
-                      method: :patch %>
-        <%= habit_item.quantity %>
-        <%= button_to '-', habit_habit_item_path(habit, habit_item, habit_item: { quantity: habit_item.quantity - 1 }),
-                      method: :patch %>
-      </td>
+    <% (@start_date..@end_date).each do |date| %>
+      <%= render 'habit_item', habit_item: habit.items.detect{|h| h.date == date}, target: habit.daily_target %>
     <% end %>
   </tr>
 <% end %>

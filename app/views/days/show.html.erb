@@ -6,9 +6,9 @@
   <h1>
     <%= day_title @day.date %>
 
-    <% if @day.date <= Date.today && (@day.total_tasks + @habits.size ) > 0 %>
+    <% if @day.date <= today && (@day.total_tasks + @habits.size ) > 0 %>
       <span>
-        <%= day_completion(@day.total_tasks, @day.completed_tasks, @total_habits, @completed_habits ) %>%
+        <%= day_percentage(@day.total_tasks, @day.completed_tasks, @total_habits, @completed_habits ) %>
       </span>
     <% end %>
   </h1>
@@ -54,7 +54,7 @@
     <br>
   <% end %>
 
-  <% if @day.date >= Date.today %>
+  <% if @day.date >= today %>
     <%= turbo_frame_tag Task.new do %>
       <%= link_to "Add new task", new_day_task_path(@day) %>
     <% end %>

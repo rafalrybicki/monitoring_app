@@ -41,9 +41,18 @@ td {
   border: 1px solid black;
 }
 
+th,
 td {
   min-width: 40px;
   text-align: center;
+
+  &.lightgrey {
+    background-color: lightgrey;
+  }
+
+  &.red {
+    background-color: red;
+  }
 
   &.green {
     background-color: green;
