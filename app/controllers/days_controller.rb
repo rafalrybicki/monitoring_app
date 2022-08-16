@@ -2,14 +2,13 @@ class DaysController < ApplicationController
   before_action :set_day, except: :index
   before_action :set_tasks, except: :index
   before_action :set_habits, except: :index
+  before_action :set_day_percentage, except: :index
 
   def index
     @days = current_user.days
   end
 
-  def show
-    @overdue_tasks = current_user.tasks.not_completed if @day.date >= Date.today
-  end
+  def show; end
 
   def today
     @overdue_tasks = current_user.tasks.not_completed
@@ -28,7 +27,7 @@ class DaysController < ApplicationController
   end
 
   def set_habits
-    day_habits = @day.habits.joins(:habit).select(:id, :date, :quantity, :name, :daily_target)
+    day_habits = @day.habits.joins(:habit).select(:id, :habit_id, :date, :quantity, :name, :daily_target)
     @monitored = []
     @habits = []
     @total_habits = 0
@@ -43,5 +42,9 @@ class DaysController < ApplicationController
         @monitored << habit
       end
     end
+  end
+
+  def set_day_percentage
+    @day_percentage = day_percentage(@day.total_tasks, @day.completed_tasks, @total_habits, @completed_habits)
   end
 end

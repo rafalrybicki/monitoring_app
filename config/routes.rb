@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root 'days#today'
+  root to: redirect('/today')
+
+  get '/today', to: 'days#today'
 
   resources :days, only: %i[index show], param: :date do
     resources :tasks, except: %i[index show]

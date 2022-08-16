@@ -14,6 +14,7 @@ body {
   min-height: 100vh;
   min-width: 100vw;
   overflow-x: hidden;
+  padding-left: 70px;
 }
 
 button {
@@ -45,6 +46,7 @@ th,
 td {
   min-width: 40px;
   text-align: center;
+  color: black !important;
 
   &.lightgrey {
     background-color: lightgrey;
@@ -57,6 +59,14 @@ td {
   &.green {
     background-color: green;
   }
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
 }
 
 .flash,

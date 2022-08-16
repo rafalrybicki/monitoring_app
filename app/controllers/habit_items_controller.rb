@@ -5,7 +5,7 @@ class HabitItemsController < ApplicationController
 
     authorize_user(@habit_item.habit.user_id)
 
-    redirect_to habits_path
+    redirect_back(fallback_location: today_path)
   end
 
   # private
