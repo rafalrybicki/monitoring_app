@@ -3,12 +3,13 @@
     <%= form_with model: [ @day, @task ] do |form| %>
       <p>
         <%= form.label :content %><br>
-        <%= form.text_field :content %>
+        <%= form.text_field :content, autocomplete: 'off' %>
       </p>
       <p>
         <%= form.submit %>
       </p>
     <% end %>
+    <%= params %>
     <%= link_to 'Back', :back %>
   </div>
 <% end %>

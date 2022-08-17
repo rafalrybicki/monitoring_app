@@ -9,26 +9,42 @@ class TasksController < ApplicationController
   def create
     @task = @day.tasks.new(task_params)
     @task.user_id = current_user.id
-    @task.save!
 
-    @day.increment!(:total_tasks)
+    respond_to do |format|
+      if @task.save
+        @day.increment!(:total_tasks)
+        notice = 'Task was successfully created.'
+        session[:day_values]['total_tasks'] += 1
 
-    redirect_to @day
+        format.turbo_stream { flash.now[:notice] = notice }
+        format.html { redirect_to @day, notice: }
+      else
+        render :new, status: :unprocessable_entity, notice: 'Something went wrong'
+      end
+    end
   end
 
   def edit; end
 
   def update
     prev_completed = @task.completed
-    @task.update!(task_params)
 
-    if prev_completed && !@task.completed
-      @day.decrement!(:completed_tasks)
-    elsif !prev_completed && @task.completed
-      @day.increment!(:completed_tasks)
+    respond_to do |format|
+      if @task.update!(task_params)
+        if !prev_completed && @task.completed
+          @day.increment!(:completed_tasks)
+          session[:day_values]['completed_tasks'] += 1
+        elsif prev_completed && !@task.completed
+          @day.decrement!(:completed_tasks)
+          session[:day_values]['completed_tasks'] -= 1
+        end
+
+        format.turbo_stream
+        format.html { redirect_to @day }
+      else
+        format.html { render @day, status: :unprocessable_entity }
+      end
     end
-
-    redirect_to @day
   end
 
   def destroy

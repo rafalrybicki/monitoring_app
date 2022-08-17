@@ -23,6 +23,8 @@
   </tr>
 </table>
 <br>
+<%= session[:day_values] %>
 <%= turbo_frame_tag Habit.new do %>
   <%= link_to "New habit", new_habit_path %>
 <% end %>
+<%= session[:day_values] %>

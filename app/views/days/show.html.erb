@@ -3,13 +3,16 @@
     <%= link_to '<', day_path(param_date - 1.day) %>
     <%= link_to '>', day_path(param_date + 1.day) %>
   </div>
+
   <h1>
     <%= day_title @day.date %>
 
     <% if @day.date <= today && (@day.total_tasks + @habits.size ) > 0 %>
-      <span>
-        <%= @day_percentage %>
-      </span>
+      <%= turbo_frame_tag 'day-percentage' do %>
+        <span>
+          <%= day_percentage %>
+        </span>
+      <% end %>
     <% end %>
   </h1>
   <br>
@@ -21,18 +24,16 @@
     </div>
     <br>
   <% end %>
+  <%= session[:day_values] %>
+  <br>
+  <%= turbo_frame_tag 'tasks' do %>
+    <% if @tasks.any? %>
+      <h2>Tasks</h2>
 
-  <% if @tasks.any? %>
-    <h2>Tasks</h2>
-
-    <%= turbo_frame_tag @tasks do %>
-      <% @tasks.each do |task| %>
-        <%= render task, view_date: @day.date %>
-      <% end %>
+      <%= render @tasks %>
     <% end %>
-    <br>
   <% end %>
-
+  <br>
   <% if @habits.any? %>
     <h2>Habits</h2>
 
