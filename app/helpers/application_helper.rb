@@ -8,22 +8,30 @@ module ApplicationHelper
   end
 
   def day_percentage
-    return '-' if session[:day_values].nil? # nie zadziała bo bedzeie to na habitah
+    percentage(
+      session[:day_values]['total_tasks'],
+      session[:day_values]['completed_tasks'],
+      session[:day_values]['total_habits'],
+      session[:day_values]['completed_habits']
+    )
+  end
 
-    total = session[:day_values]['total_tasks'] + session[:day_values]['total_habits']
-    completed = session[:day_values]['completed_tasks'] + session[:day_values]['completed_habits']
+  def habit_day_percentage(total_tasks, completed_tasks, total_habits, completed_habits)
+    total_habits ||= 0
+    completed_habits ||= 0
+
+    return '-' if [completed_tasks, completed_habits, total_tasks, total_habits].all?(0)
+
+    percentage(total_tasks, completed_tasks, total_habits, completed_habits)
+  end
+
+  private
+
+  def percentage(total_tasks, completed_tasks, total_habits, completed_habits)
+    total = total_tasks + total_habits
+    completed = completed_tasks + completed_habits
     completion = (completed / total.to_f) * 100
 
     (completion == completion.round ? completion.round : completion.round(1)).to_s + '%'
   end
-
-  # def day_percentage(total_tasks, completed_tasks, total_habits, completed_habits)
-  #   return '-' if [completed_tasks, completed_habits, total_tasks, total_habits].all?(0)
-
-  #   total = total_tasks + total_habits
-  #   completed = completed_tasks + completed_habits
-  #   completion = (completed / total.to_f) * 100
-
-  #   (completion == completion.round ? completion.round : completion.round(1)).to_s + '%'
-  # end
 end
