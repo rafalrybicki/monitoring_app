@@ -8,7 +8,7 @@ class HabitItemsController < ApplicationController
     redirect_back(fallback_location: today_path)
   end
 
-  # private
+  private
 
   def habit_item_params
     params.require(:habit_item).permit(:quantity)

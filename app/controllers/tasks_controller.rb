@@ -13,11 +13,10 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         @day.increment!(:total_tasks)
-        notice = 'Task was successfully created.'
         session[:day_values]['total_tasks'] += 1
 
-        format.turbo_stream { flash.now[:notice] = notice }
-        format.html { redirect_to @day, notice: }
+        format.turbo_stream
+        format.html { redirect_to @day }
       else
         render :new, status: :unprocessable_entity, notice: 'Something went wrong'
       end
