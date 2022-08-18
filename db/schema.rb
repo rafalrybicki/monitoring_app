@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_02_173631) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_18_115857) do
   create_table "days", force: :cascade do |t|
     t.integer "user_id", null: false
     t.date "date", null: false
@@ -40,6 +40,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_173631) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_habits_on_user_id"
+  end
+
+  create_table "quotes", force: :cascade do |t|
+    t.string "content", null: false
+    t.string "author"
+    t.integer "order", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tasks", force: :cascade do |t|
