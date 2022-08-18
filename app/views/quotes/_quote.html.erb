@@ -1,0 +1,20 @@
+<%= turbo_frame_tag quote do %>
+  <div class="quote">
+    <%= quote.content %>
+    <%= quote.author%>
+
+    <%= button_to edit_quote_path(quote),
+              method: :get,
+              class: "action-btn" do %>
+      <%= bootstrap_icon "pencil-square" %>
+    <% end %>
+
+    <%= button_to quote_path(quote),
+              method: :delete,
+              form: { data: { turbo_confirm: "Are you sure?" } },
+              class: "action-btn" do %>
+      <%= bootstrap_icon "trash3-fill", height: 15 %>
+    <% end %>
+
+  </div>
+<% end %>

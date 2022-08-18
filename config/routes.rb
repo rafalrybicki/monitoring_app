@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     resources :habit_items, only: %i[update]
   end
 
+  resources :quotes, except: %i[show]
+
   devise_for :users
 end

@@ -1,0 +1,7 @@
+<%= turbo_frame_tag 'quotes' do %>
+  <%= render @quotes %>
+<% end %>
+
+<%= turbo_frame_tag 'new-quote' do %>
+  <%= link_to 'Add new quote', new_quote_path %>
+<% end %>

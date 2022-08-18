@@ -62,6 +62,10 @@ class TasksController < ApplicationController
 
   private
 
+  def task_params
+    params.require(:task).permit(:content, :completed, :cancelled)
+  end
+
   def set_day
     @day = current_user.days.find(params[:day_date])
   end
@@ -70,9 +74,5 @@ class TasksController < ApplicationController
     @task = @day.tasks.find(params[:id])
 
     authorize_user(@task.user_id)
-  end
-
-  def task_params
-    params.require(:task).permit(:content, :completed, :cancelled)
   end
 end
