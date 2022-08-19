@@ -1,27 +1,43 @@
-<table>
-  <tr>
-    <th>habit</th>
-    <% @days_of_month.each do |day| %>
-      <th>
-        <%= day %>
-      </th>
-    <% end %>
-  </tr>
+<div class="habits">
+  <%= turbo_frame_tag do %>
+    <div class="row">
+      <span class="cell"></span>
+      <% @days_of_month.each do |day| %>
+        <span class="cell">
+          <%= day %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
 
-  <%= render @habits %>
-
-  <tr>
-    <td>day %</td>
-    <% @days.each do |day| %>
-      <td>
-        <%= habit_day_percentage(day.total_tasks,
-                                 day.completed_tasks,
-                                 day.total_habits,
-                                 day.completed_habits) %>
-      </td>
+  <%= turbo_frame_tag "habits" do %>
+    <% @habits.each do |habit|%>
+      <%= render habit, start_date: @start_date, end_date: @end_date %>
     <% end %>
-  </tr>
-</table>
+  <% end %>
+
+  <%= turbo_frame_tag "monitored" do %>
+    <% @monitored.each do |habit|%>
+      <%= render habit, start_date: @start_date, end_date: @end_date %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "days" do %>
+    <div class="row">
+      <div class="cell">
+        DAY %
+      </div>
+      <% @days.each do |day| %>
+        <div class="cell">
+          <%= habit_day_percentage(day.total_tasks,
+                                   day.completed_tasks,
+                                   day.total_habits,
+                                   day.completed_habits) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 <br>
 <%= turbo_frame_tag Habit.new do %>
   <%= link_to "New habit", new_habit_path %>

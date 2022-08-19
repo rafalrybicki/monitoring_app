@@ -4,9 +4,12 @@ class HabitsController < ApplicationController
     @end_date = today # @start_date.end_of_month
     @days_of_month = 1..@start_date.end_of_month.day
 
-    @habits = Habit.eager_load(:items)
-                   .order(:date)
-                   .where('habit_items.date >= ? AND habit_items.date <= ?', @start_date, @end_date)
+    all_habits = Habit.eager_load(:items)
+                      .order(:date)
+                      .where('habit_items.date >= ? AND habit_items.date <= ?', @start_date, @end_date)
+
+    @habits = all_habits.select { |habit| habit.daily_target > 0 }
+    @monitored = all_habits.select { |habit| habit.daily_target == 0 }
 
     @days = Day.find_by_sql(["
       SELECT
@@ -70,9 +73,15 @@ class HabitsController < ApplicationController
   def create
     @habit = Habit.new(habit_params)
     @habit.user_id = current_user.id
-    @habit.save!
 
-    redirect_to habits_path
+    respond_to do |format|
+      if @habit.save
+        format.turbo_stream
+        format.html { redirect_to habits_path }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit

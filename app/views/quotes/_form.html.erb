@@ -1,4 +1,4 @@
-<%= turbo_frame_tag 'new-quote' do %>
+<%= turbo_frame_tag @quote do %>
   <%= form_with model: @quote do |form| %>
     <p>
       <%= form.label :content %><br>

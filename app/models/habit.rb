@@ -12,7 +12,7 @@ class Habit < ApplicationRecord
     end_date = start_date.end_of_month
 
     (start_date..end_date).each do |date|
-      habit_items.create!(date:)
+      items.create!(date:)
     end
   end
 end

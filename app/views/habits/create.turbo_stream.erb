@@ -1,0 +1,2 @@
+<%= turbo_stream.append "monitored", partial: 'habits/habit', locals: { habit: @habit, start_date: today, end_date: today.end_of_month } %>
+<%#= turbo_stream.append ( @habit.daily_target > 0 "habits" : "monitored" ), @habit %>

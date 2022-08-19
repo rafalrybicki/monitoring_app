@@ -1,0 +1,49 @@
+.habits {
+  display: table;
+
+  turbo-frame {
+    min-width: 100%;
+    display: block;
+    min-height: 30px;
+  }
+
+  .row {
+    display: table-row;
+    width: 100%;
+
+    .cell {
+      display: table-cell;
+      min-width: 50px;
+      text-align: center;
+      vertical-align: middle;
+      color: black;
+
+      &:hover {
+        .button_to {
+          opacity: 1;
+        }
+      }
+
+      &:first-of-type {
+        min-width: 100px;
+        max-width: 100px;
+      }
+
+      &.green {
+        background-color: green;
+      }
+
+      &.red {
+        background-color: red;
+      }
+
+      &.lightgrey {
+        background: lightgrey;
+      }
+
+      .button_to {
+        opacity: 0;
+      }
+    }
+  }
+}

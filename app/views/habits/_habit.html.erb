@@ -1,10 +1,10 @@
 <%= turbo_frame_tag habit do %>
-  <tr>
-    <td>
+  <div class="row">
+    <div class="cell">
       <%= habit.name %>
-    </td>
-    <% (@start_date..@end_date).each do |date| %>
+    </div>
+    <% (start_date..end_date).each do |date| %>
       <%= render 'habit_item', habit_item: habit.items.detect{|h| h.date == date}, target: habit.daily_target %>
     <% end %>
-  </tr>
+  </div>
 <% end %>

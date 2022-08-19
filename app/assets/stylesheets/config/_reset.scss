@@ -36,48 +36,8 @@ a {
   color: inherit;
 }
 
-table,
-th,
-td {
-  border-collapse: collapse;
-  border: 1px solid black;
-}
-
-th,
-td {
-  min-width: 40px;
-  text-align: center;
-  color: black !important;
-
-  &.lightgrey {
-    background-color: lightgrey;
-  }
-
-  &.red {
-    background-color: red;
-  }
-
-  &.green {
-    background-color: green;
-  }
-}
-
-.red {
-  color: red;
-}
-
-.green {
-  color: green;
-}
-
-.flash,
 nav {
   position: absolute;
-}
-
-.flash {
-  top: 0;
-  left: 40%;
 }
 
 nav {
