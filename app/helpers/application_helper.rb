@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def render_random_quote
+    flash.now[:notice] = Quote.order('RANDOM()').first.content
+    turbo_stream.prepend 'flash', partial: 'flash'
+  end
+
   def param_date
     params[:date] ? params[:date].to_date : Date.today
   end

@@ -8,10 +8,8 @@
     <%= day_title @day.date %>
 
     <% if @day.date <= today && (@day.total_tasks + @habits.size ) > 0 %>
-      <%= turbo_frame_tag 'day-percentage' do %>
-        <span>
-          <%= day_percentage %>
-        </span>
+      <%= turbo_frame_tag "#{today}-percentage" do %>
+        <%= day_percentage %>
       <% end %>
     <% end %>
   </h1>

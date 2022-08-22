@@ -28,12 +28,12 @@
         DAY %
       </div>
       <% @days.each do |day| %>
-        <div class="cell">
+        <%= turbo_frame_tag "#{day.date}-percentage", class: "cell" do %>
           <%= habit_day_percentage(day.total_tasks,
                                    day.completed_tasks,
                                    day.total_habits,
                                    day.completed_habits) %>
-        </div>
+        <% end %>
       <% end %>
     </div>
   <% end %>

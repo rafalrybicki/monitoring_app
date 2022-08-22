@@ -1,0 +1,19 @@
+<%= turbo_stream.replace @habit_item, partial: 'habit_item', locals: { habit_item: @habit_item, target: @habit_item.habit.daily_target } %>
+
+<%= turbo_stream.update "#{@habit_item.date}-percentage", habit_day_percentage(@day.total_tasks,
+                                                                               @day.completed_tasks,
+                                                                               @day.total_habits,
+                                                                               @day.completed_habits) %>
+
+<% if @habit_item.date = today && params[:controller] == 'habits' %>
+  <%= turbo_stream.update @habit_item, partial: 'days/habit_task', locals: { habit: OpenStruct.new(
+    id: @habit_item.id,
+    habit_id: @habit_item.habit_id,
+    name: @habit_item.habit.name,
+    quantity: @habit_item.quantity,
+    daily_target: @habit_item.habit.daily_target,
+    date: @habit_item.date
+  )} %>
+<% end %>
+
+<%= render_random_quote %>
