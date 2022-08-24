@@ -3,9 +3,12 @@ Rails.application.routes.draw do
 
   get '/today', to: 'days#today'
 
-  resources :days, only: %i[index show], param: :date do
-    resources :tasks, except: %i[index show]
-    patch 'tasks/:id/reschedule', to: 'tasks#reschedule', as: 'task_reschedule'
+  resources :days, only: %i[index show edit update] do
+    resources :tasks, except: %i[index show] do
+      member do
+        patch 'reschedule'
+      end
+    end
   end
 
   resources :habits, except: %i[show] do

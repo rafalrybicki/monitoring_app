@@ -8,10 +8,10 @@
                 method: :patch %>
 
   <%= button_to 'Add to today',
-                day_task_reschedule_path(task.date, task.id, { new_date: Date.today }),
+                reschedule_day_task_path(task.date, task.id, { new_date: Date.today }),
                 method: :patch %>
 
   <%= button_to 'Add to tomorrow',
-                day_task_reschedule_path(task.date, task.id, { new_date: Date.tomorrow }),
+                reschedule_day_task_path(task.date, task.id, { new_date: Date.tomorrow }),
                 method: :patch %>
 </div>

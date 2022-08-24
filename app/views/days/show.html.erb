@@ -1,29 +1,26 @@
 <div class="day">
   <div class="day__links">
-    <%= link_to '<', day_path(param_date - 1.day) %>
-    <%= link_to '>', day_path(param_date + 1.day) %>
+    <%= link_to '<', day_path(@day.id - 1) %>
+    <%= link_to '>', day_path(@day.id + 1) %>
   </div>
 
   <h1>
     <%= day_title @day.date %>
 
-    <% if @day.date <= today && (@day.total_tasks + @habits.size ) > 0 %>
-      <%= turbo_frame_tag "#{today}-percentage" do %>
+    <%= turbo_frame_tag "#{today}-percentage" do %>
+      <% if @day.date <= today && (@day.total_tasks + @habits.size ) > 0 %>
         <%= day_percentage %>
       <% end %>
     <% end %>
   </h1>
-  <br>
 
   <% if @overdue_tasks && @overdue_tasks.any? %>
     <div>
       <h2>Overdue tasks</h2>
       <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
     </div>
-    <br>
   <% end %>
 
-  <br>
   <%= turbo_frame_tag 'tasks' do %>
     <% if @tasks.any? %>
       <h2>Tasks</h2>
@@ -31,23 +28,28 @@
       <%= render @tasks %>
     <% end %>
   <% end %>
-  <br>
+
   <% if @habits.any? %>
     <h2>Habits</h2>
 
     <%= render partial: 'habit_task', collection: @habits, as: :habit %>
   <% end %>
-  <br>
 
   <% if @monitored.any? %>
     <h2>Monitored</h2>
 
     <%= render partial: 'habit_task', collection: @monitored, as: :habit %>
   <% end %>
-  <br>
+
   <% if @day.date >= today %>
     <%= turbo_frame_tag Task.new do %>
       <%= link_to "Add new task", new_day_task_path(@day) %>
     <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "#{@day.date}-summary" do %>
+    <h2>Summary</h2>
+    <%= @day.summary %>
+    <%= link_to 'edit summary', edit_day_path(@day.date) %>
   <% end %>
 </div>

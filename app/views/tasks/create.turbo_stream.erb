@@ -1,3 +1,7 @@
 <%= turbo_stream.append "tasks", @task %>
-<%= turbo_stream.update 'day-percentage', day_percentage %>
+
+<% if @task.date = today %>
+  <%= turbo_stream.update "#{today}-percentage", day_percentage %>
+<% end %>
+
 <%= render_random_quote %>

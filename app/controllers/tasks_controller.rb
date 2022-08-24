@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_day
-  before_action :set_task, except: %i[new create]
+  before_action :set_task, except: %i[new create reschedule]
 
   def new
     @task = Task.new
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
         session[:day_values]['total_tasks'] += 1
 
         format.turbo_stream
-        format.html { redirect_to @day }
+        format.html { redirect_to @day.date }
       else
         render :new, status: :unprocessable_entity, notice: 'Something went wrong'
       end
@@ -52,9 +52,13 @@ class TasksController < ApplicationController
   end
 
   def reschedule
-    @task.update!(cancelled: true)
-    current_user.tasks.create!(content: @task.content, date: params[:new_date]) if params[:new_date]
-    @day.increment!(:total_tasks)
+    task = Task.find(params[:id])
+    task.update!(cancelled: true)
+
+    if params[:new_date]
+      @day.tasks.create!(content: task.content, date: params[:new_date], user_id: current_user.id)
+      @day.increment!(:total_tasks)
+    end
 
     redirect_to @day
   end
@@ -66,7 +70,7 @@ class TasksController < ApplicationController
   end
 
   def set_day
-    @day = current_user.days.find(params[:day_date])
+    @day = current_user.days.find(params[:day_id])
   end
 
   def set_task

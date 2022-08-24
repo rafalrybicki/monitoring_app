@@ -5,7 +5,10 @@ module ApplicationHelper
   end
 
   def param_date
-    params[:date] ? params[:date].to_date : Date.today
+    return params[:date].to_date if params[:date]
+    return params[:day_date].to_date if params[:day_date]
+    
+    Date.today
   end
 
   def today

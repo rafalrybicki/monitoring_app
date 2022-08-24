@@ -1,14 +1,28 @@
 class DaysController < ApplicationController
-  before_action :set_day, except: :index
-  before_action :set_tasks, except: :index
-  before_action :set_habits, except: :index
-  before_action :set_day_values, except: :index
+  before_action :set_day, except: %i[index]
+  before_action :set_tasks, except: %i[index edit update]
+  before_action :set_habits, except: %i[index edit update]
+  before_action :set_day_values, except: %i[index edit update]
 
   def index
     @days = current_user.days
   end
 
   def show; end
+
+  def edit; end
+
+  def update
+    respond_to do |format|
+      if @day.update!(params.require(:day).permit(:summary))
+
+        format.turbo_stream
+        format.html { redirect_to @day }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def today
     session[:day_values] = {
@@ -26,8 +40,11 @@ class DaysController < ApplicationController
   private
 
   def set_day
-    date = param_date
-    @day = current_user.days.preload(:tasks, :habits).find(date)
+    @day = if params[:action] == 'show'
+             current_user.days.preload(:tasks, :habits).find(params[:id])
+           else
+             current_user.days.preload(:tasks, :habits).find_by_date(Date.today)
+           end
   end
 
   def set_tasks
