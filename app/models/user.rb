@@ -7,12 +7,19 @@ class User < ApplicationRecord
   has_many :days, dependent: :destroy
   has_many :tasks, dependent: :destroy
   has_many :habits, dependent: :destroy
+  has_many :quotes, dependent: :destroy
 
   after_create :generate_year
 
   private
 
   def generate_year
+    Quote.create!(user_id: id, content: "Just do it, don't wait")
+    Quote.create!(user_id: id, content: 'The quicker we begin, the faster we can make a change')
+    Quote.create!(user_id: id, content: 'The greater the effort, the bigger the results')
+    Quote.create!(user_id: id, content: 'The longer we wait, the harder it will be')
+    Quote.create!(user_id: id, content: 'Now is the time to act')
+
     today = Date.today
 
     365.times do |number|

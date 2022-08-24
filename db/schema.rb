@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_23_110302) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_24_165646) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -86,6 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_110302) do
     t.integer "order", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_quotes_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -116,5 +118,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_110302) do
   add_foreign_key "days", "users"
   add_foreign_key "habit_items", "habits"
   add_foreign_key "habits", "users"
+  add_foreign_key "quotes", "users"
   add_foreign_key "tasks", "users"
 end
