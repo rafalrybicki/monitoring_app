@@ -67,7 +67,9 @@ class HabitItemsController < ApplicationController
       WHERE
         days.date = ?
       GROUP BY
-        days.date
+        days.date,
+        days.total_tasks,
+        days.completed_tasks
     ", date]).first
   end
 end

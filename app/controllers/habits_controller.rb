@@ -37,7 +37,9 @@ class HabitsController < ApplicationController
         days.date >= ?
         AND days.date <= ?
       GROUP BY
-        days.date
+        days.date,
+        days.total_tasks,
+        days.completed_tasks
       ORDER BY
         days.date
     ", Date.today.beginning_of_month, today])
