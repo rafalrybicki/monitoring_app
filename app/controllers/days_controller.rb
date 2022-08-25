@@ -32,7 +32,7 @@ class DaysController < ApplicationController
       'total_habits' => @total_habits
     }
 
-    @overdue_tasks = current_user.tasks.not_completed
+    @overdue_tasks = current_user.tasks.includes(:day).not_completed
 
     render :show
   end

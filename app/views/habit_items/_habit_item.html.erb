@@ -1,7 +1,13 @@
-<%= turbo_frame_tag habit_item, class: habit_item_css_class(target, habit_item) do %>
+<%= turbo_frame_tag "habit-#{habit_id}-#{date}", class: habit_item_css_class(target, date, habit_item) do %>
   <% if habit_item %>
-    <%= button_to '+', habit_habit_item_path(habit_item.habit_id, habit_item, habit_item: { quantity: habit_item.quantity + 1 }), method: :patch %>
+    <%= button_to '+', habit_item_path(habit_item, habit_item: { quantity: habit_item.quantity + 1 }), method: :patch %>
+
     <%= habit_item.quantity %>
-    <%= button_to '-', habit_habit_item_path(habit_item.habit_id, habit_item, habit_item: { quantity: habit_item.quantity - 1 }), method: :patch %>
+
+    <% if habit_item.quantity > 0 %>
+      <%= button_to '-', habit_item_path(habit_item, habit_item: { quantity: habit_item.quantity - 1 }), method: :patch %>
+    <% end %>
+  <% else %>
+    <%= button_to '+', habit_items_path(habit_item: { habit_id:, date:, quantity: 1 }), method: :post %>
   <% end %>
 <% end %>

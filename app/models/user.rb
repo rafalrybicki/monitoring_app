@@ -20,10 +20,10 @@ class User < ApplicationRecord
     Quote.create!(user_id: id, content: 'The longer we wait, the harder it will be')
     Quote.create!(user_id: id, content: 'Now is the time to act')
 
-    today = Date.today
+    start_date = Date.current.beginning_of_month
 
     365.times do |number|
-      Day.create!(user_id: id, date: (today + number.days))
+      Day.create!(user_id: id, date: (start_date + number.days))
     end
   end
 end

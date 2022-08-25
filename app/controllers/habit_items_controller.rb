@@ -1,39 +1,21 @@
 class HabitItemsController < ApplicationController
+  def create
+    @habit_item = HabitItem.create!(habit_item_params)
+    @day = day(@habit_item.date)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to habits_path }
+    end
+  end
+
   def update
     @habit_item = HabitItem.find(params[:id])
     authorize_user(@habit_item.habit.user_id)
 
     respond_to do |format|
       if @habit_item.update!(habit_item_params)
-        if @habit_item.date <= today
-          @day = Day.find_by_sql(["
-            SELECT
-              days.date,
-              days.total_tasks,
-              days.completed_tasks,
-              SUM(
-                CASE WHEN habits.quantity > habits.daily_target THEN habits.daily_target ELSE habits.quantity END
-              ) as completed_habits,
-              SUM(habits.daily_target) as total_habits
-            FROM
-              days
-              LEFT OUTER JOIN (
-                SELECT
-                  date,
-                  quantity,
-                  daily_target
-                FROM
-                  habit_items
-                  JOIN habits ON habit_items.habit_id = habits.id
-                WHERE
-                  habits.daily_target > 0
-              ) as habits ON days.date = habits.date
-            WHERE
-              days.date = ?
-            GROUP BY
-              days.date
-          ", @habit_item.date]).first
-        end
+        @day = day(@habit_item.date)
 
         format.turbo_stream
         format.html { redirect_to :back }
@@ -43,9 +25,49 @@ class HabitItemsController < ApplicationController
     end
   end
 
+  # def increment
+  #   @habit_item = HabitItem.find_or_create!(habit_id: params[:habit_id], date; params[:date])
+  #   @habit_item.increment!(:quantity)
+  # end
+
+  # def decrement
+  #   @habit_item = HabitItem.find_or_create!(habit_id: params[:habit_id], date; params[:date])
+  #   @habit_item.decrement!(:quantity)
+  # end
+
   private
 
   def habit_item_params
-    params.require(:habit_item).permit(:quantity)
+    params.require(:habit_item).permit(:habit_id, :quantity, :date)
+  end
+
+  def day(date)
+    Day.find_by_sql(["
+      SELECT
+        days.date,
+        days.total_tasks,
+        days.completed_tasks,
+        SUM(
+          CASE WHEN habits.quantity > habits.daily_target THEN habits.daily_target ELSE habits.quantity END
+        ) as completed_habits,
+        SUM(habits.daily_target) as total_habits
+      FROM
+        days
+        LEFT OUTER JOIN (
+          SELECT
+            date,
+            quantity,
+            daily_target
+          FROM
+            habit_items
+            JOIN habits ON habit_items.habit_id = habits.id
+          WHERE
+            habits.daily_target > 0
+        ) as habits ON days.date = habits.date
+      WHERE
+        days.date = ?
+      GROUP BY
+        days.date
+    ", date]).first
   end
 end

@@ -56,11 +56,12 @@ class TasksController < ApplicationController
     task.update!(cancelled: true)
 
     if params[:new_date]
-      @day.tasks.create!(content: task.content, date: params[:new_date], user_id: current_user.id)
-      @day.increment!(:total_tasks)
+      new_task = Task.create!(content: task.content, date: params[:new_date], user_id: current_user.id)
+      new_task.day.increment!(:total_tasks)
+      session[:day_values]['total_tasks'] += 1
     end
 
-    redirect_to @day
+    redirect_to today_path
   end
 
   private

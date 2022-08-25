@@ -46,6 +46,10 @@
       <%= link_to "Add new task", new_day_task_path(@day) %>
     <% end %>
   <% end %>
+  <br>
+  <br>
+  <p>habit are not displayed correctly on day view</p>
+  <br>
 
   <%= turbo_frame_tag "#{@day.date}-summary" do %>
     <h2>Summary</h2>

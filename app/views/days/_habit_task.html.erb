@@ -7,7 +7,7 @@
     <% else %>
       <%= habit.name %> - <%= habit.quantity %>
     <% end %>
-    <%= button_to '+', habit_habit_item_path(habit.habit_id, habit.id, habit_item: { quantity: habit.quantity + 1 }), method: :patch %>
-    <%= button_to '-', habit_habit_item_path(habit.habit_id, habit.id, habit_item: { quantity: habit.quantity - 1 }), method: :patch %>
+    <%= button_to '+', habit_item_path(habit.id, habit_item: { quantity: habit.quantity + 1 }), method: :patch %>
+    <%= button_to '-', habit_item_path(habit.id, habit_item: { quantity: habit.quantity - 1 }), method: :patch %>
   </div>
 <% end %>

@@ -4,7 +4,11 @@
       <span class="cell"></span>
       <% @days_of_month.each do |day| %>
         <span class="cell">
-          <%= day %>
+          <%= day.strftime('%-d') %>
+          <br>
+          <small>
+            <%= day.strftime('%a') %>
+          </small>
         </span>
       <% end %>
     </div>

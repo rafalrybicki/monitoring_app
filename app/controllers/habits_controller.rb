@@ -2,11 +2,11 @@ class HabitsController < ApplicationController
   def index
     @start_date = today.beginning_of_month
     @end_date = today # @start_date.end_of_month
-    @days_of_month = 1..@start_date.end_of_month.day
+    @days_of_month = @start_date..@start_date.end_of_month
 
-    all_habits = Habit.eager_load(:items)
-                      .order(:date)
-                      .where('habit_items.date >= ? AND habit_items.date <= ?', @start_date, @end_date)
+    all_habits = Habit.order(:date).eager_load(:items)
+
+    # .where('habit_items.date >= ? AND habit_items.date <= ?', @start_date, @end_date)
 
     @habits = all_habits.select { |habit| habit.daily_target > 0 }
     @monitored = all_habits.select { |habit| habit.daily_target == 0 }

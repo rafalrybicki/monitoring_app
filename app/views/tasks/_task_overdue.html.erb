@@ -4,14 +4,14 @@
   </p>
 
   <%= button_to 'cancel',
-                day_task_path(task.date, task.id, task: { cancelled: true }),
+                day_task_path(task.day.id, task.id, task: { cancelled: true }),
                 method: :patch %>
 
   <%= button_to 'Add to today',
-                reschedule_day_task_path(task.date, task.id, { new_date: Date.today }),
+                reschedule_day_task_path(task.day.id, task.id, { new_date: Date.today }),
                 method: :patch %>
 
   <%= button_to 'Add to tomorrow',
-                reschedule_day_task_path(task.date, task.id, { new_date: Date.tomorrow }),
+                reschedule_day_task_path(task.day.id, task.id, { new_date: Date.tomorrow }),
                 method: :patch %>
 </div>
