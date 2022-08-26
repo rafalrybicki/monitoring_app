@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :habits, except: %i[show]
+  resources :habits
 
   resources :habit_items, only: %i[create update]
 

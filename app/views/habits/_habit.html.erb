@@ -1,7 +1,7 @@
 <%= turbo_frame_tag habit do %>
   <div class="row">
     <div class="cell">
-      <%= habit.name %>
+      <%= link_to habit.name, edit_habit_path(habit), data: { turbo_frame: "_top" } %>
     </div>
     <% (start_date..end_date).each do |date| %>
       <%= render 'habit_items/habit_item', habit_item: habit.items.detect{|h| h.date == date}, target: habit.daily_target, date:, habit_id: habit.id %>

@@ -5,7 +5,15 @@
       <%= form.text_field :name %>
     </p>
     <p>
-      <%= form.submit %>
+      <%= form.label :daily_target %><br>
+      <%= form.text_field :daily_target %>
+    </p>
+    <p>
+      <%= form.label :weekly_target %><br>
+      <%= form.text_field :weekly_target %>
+    </p>
+    <p>
+      <%= form.submit data: { turbo_frame: "_top"} %>
     </p>
   <% end %>
   <%= link_to 'Back', :back %>

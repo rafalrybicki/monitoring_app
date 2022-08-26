@@ -68,6 +68,10 @@ class HabitsController < ApplicationController
     # end
   end
 
+  def show
+    @habit = Habit.find(params[:id])
+  end
+
   def new
     @habit = Habit.new
   end
@@ -92,7 +96,17 @@ class HabitsController < ApplicationController
     authorize_user(@habit.user_id)
   end
 
-  def update; end
+  def update
+    @habit = Habit.find(params[:id])
+
+    respond_to do |format|
+      if @habit.update!(habit_params)
+        format.html { redirect_to habits_path }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def destroy; end
 
