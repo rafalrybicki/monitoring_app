@@ -1,4 +1,4 @@
-<%= turbo_frame_tag habit do %>
+<%= turbo_frame_tag "habit_item_#{habit.id}" do %>
   <div class="day-habit <%= day_habit_css_class(habit) if habit.daily_target > 0 %>">
     <% if habit.daily_target > 0 %>
       <%= habit.name %>
