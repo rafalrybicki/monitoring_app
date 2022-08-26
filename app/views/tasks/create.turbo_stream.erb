@@ -1,3 +1,5 @@
+<%= turbo_stream.update Task.new, partial: 'tasks/form', locals: { task: Task.new } %>
+
 <%= turbo_stream.append "tasks", @task %>
 
 <% if @task.date = today %>

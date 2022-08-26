@@ -1,5 +1,5 @@
 <h1>Edit habit</h1>
 
 <%= turbo_frame_tag @habit do %>
-  <%= render 'form' %>
+  <%= render 'form', habit: @habit %>
 <% end %>

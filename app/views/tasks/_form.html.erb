@@ -1,9 +1,9 @@
-<%= turbo_frame_tag @task do %>
+<%= turbo_frame_tag task do %>
   <div>
-    <%= form_with model: [ @day, @task ] do |form| %>
+    <%= form_with model: [ @day, task ] do |form| %>
       <p>
         <%= form.label :content %><br>
-        <%= form.text_field :content, autocomplete: 'off' %>
+        <%= form.text_field :content, autocomplete: 'off', autofocus: true %>
       </p>
       <p>
         <%= form.submit %>

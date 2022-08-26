@@ -29,6 +29,16 @@
     <% end %>
   <% end %>
 
+  <% if @day.date >= today %>
+    <%= turbo_frame_tag Task.new do %>
+      <%= link_to "Add new task", new_day_task_path(@day) %>
+    <% end %>
+  <% end %>
+  <br>
+  <br>
+  <p>habit are not displayed correctly on day view because of habit_item with specific date doesn't exist</p>
+  <br>
+
   <% if @habits.any? %>
     <h2>Habits</h2>
 
@@ -40,16 +50,6 @@
 
     <%= render partial: 'habit_task', collection: @monitored, as: :habit %>
   <% end %>
-
-  <% if @day.date >= today %>
-    <%= turbo_frame_tag Task.new do %>
-      <%= link_to "Add new task", new_day_task_path(@day) %>
-    <% end %>
-  <% end %>
-  <br>
-  <br>
-  <p>habit are not displayed correctly on day view because of habit_item with specific date doesn't exist</p>
-  <br>
 
   <%= turbo_frame_tag "#{@day.date}-summary" do %>
     <h2>Summary</h2>

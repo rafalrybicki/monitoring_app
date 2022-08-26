@@ -1,1 +1,3 @@
+<%= turbo_stream.update Habit.new, partial: 'habits/form', locals: { habit: Habit.new } %>
+
 <%= turbo_stream.append "monitored", partial: 'habits/habit', locals: { habit: @habit, start_date: today.beginning_of_month, end_date: today } %>

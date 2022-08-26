@@ -1,8 +1,8 @@
-<%= turbo_frame_tag @habit do %>
-  <%= form_with model: @habit do |form| %>
+<%= turbo_frame_tag habit do %>
+  <%= form_with model: habit do |form| %>
     <p>
       <%= form.label :name %><br>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, autofocus: true %>
     </p>
     <p>
       <%= form.label :daily_target %><br>
