@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :days, only: %i[index show edit update] do
     resources :tasks, except: %i[index show] do
       member do
-        patch 'reschedule'
+        patch 'cancel'
       end
     end
   end

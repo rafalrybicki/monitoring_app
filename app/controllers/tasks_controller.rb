@@ -51,14 +51,14 @@ class TasksController < ApplicationController
     @day.decrement!(:total_tasks)
   end
 
-  def reschedule
+  def cancel
     task = Task.find(params[:id])
     task.update!(cancelled: true)
 
     if params[:new_date]
       new_task = Task.create!(content: task.content, date: params[:new_date], user_id: current_user.id)
       new_task.day.increment!(:total_tasks)
-      session[:day_values]['total_tasks'] += 1
+      session[:day_values]['total_tasks'] += 1 if new_task.date == today
     end
 
     redirect_to today_path
