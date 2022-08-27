@@ -54,6 +54,6 @@
   <%= turbo_frame_tag "#{@day.date}-summary" do %>
     <h2>Summary</h2>
     <%= @day.summary %>
-    <%= link_to 'edit summary', edit_day_path(@day.date) %>
+    <%= link_to @day.summary.body ? 'edit' : 'add', edit_day_path(@day.date) %>
   <% end %>
 </div>

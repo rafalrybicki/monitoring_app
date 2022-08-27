@@ -13,8 +13,12 @@
       <%= form.text_field :weekly_target %>
     </p>
     <p>
+      <%= form.label :frequency %><br>
+      <%= form.text_field :frequency %>
+    </p>
+    <p>
       <%= form.submit data: { turbo_frame: "_top"} %>
     </p>
   <% end %>
-  <%= link_to 'Back', :back %>
+  <%= link_to 'Back', :back, data: { turbo_frame: "_top"} %>
 <% end %>
