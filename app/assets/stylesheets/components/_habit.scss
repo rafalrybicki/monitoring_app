@@ -8,6 +8,14 @@
     min-height: 30px;
   }
 
+  .actions {
+    text-align: center;
+
+    .active {
+      background-color: lightgrey;
+    }
+  }
+
   .row {
     display: table-row;
     width: 100%;

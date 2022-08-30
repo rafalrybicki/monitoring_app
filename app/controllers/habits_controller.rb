@@ -2,9 +2,9 @@ class HabitsController < ApplicationController
   include HabitsHelper
 
   def index
-    @start_date = today.beginning_of_month
-    @end_date = today # @start_date.end_of_month
-    @days_of_month = @start_date..@start_date.end_of_month
+    @start_date = params[:view] ? param_date.beginning_of_week : param_date.beginning_of_month
+    @end_date = params[:view] ? @start_date.end_of_week : param_date # @start_date.end_of_month
+    @days_of_month = params[:view] ? @start_date..@end_date : @start_date..@start_date.end_of_month
 
     all_habits = Habit.order(:date).eager_load(:items)
 
@@ -44,7 +44,7 @@ class HabitsController < ApplicationController
         days.completed_tasks
       ORDER BY
         days.date
-    ", Date.today.beginning_of_month, today])
+    ", @start_date, @end_date])
 
     # @days = current_user.days.where('date >= ? AND date <= ?', @start_date, today)
     # @habits_dates = {}

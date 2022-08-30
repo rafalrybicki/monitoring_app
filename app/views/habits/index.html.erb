@@ -1,48 +1,63 @@
-<div class="habits">
-  <%= turbo_frame_tag do %>
-    <div class="row">
-      <span class="cell"></span>
-      <% @days_of_month.each do |day| %>
-        <span class="cell">
-          <%= day.strftime('%-d') %>
-          <br>
-          <small>
-            <%= day.strftime('%a') %>
-          </small>
-        </span>
+<%= turbo_frame_tag 'habits-view' do %>
+  <div class="habits">
+    <div class="actions">
+      <% if param_date.beginning_of_month > current_user.created_at.beginning_of_month || (params[:view] == 'week' && param_date.beginning_of_week > current_user.created_at.beginning_of_week) %>
+        <%= link_to 'prev', habits_path({ date: param_date - (params[:view] ? 1.week : 1.month), view: params[:view] }) %>
+      <% end %>
+
+      <%= link_to 'month', habits_path(), class: ('active' if params[:view].nil?) %>
+      <%= link_to 'week',  habits_path({ date: param_date.beginning_of_week, view: 'week' }), class: ('active' if params[:view] == 'week') %>
+
+      <% if param_date.end_of_week < today || (params[:view] == 'week' && param_date.end_of_week < today) %>
+        <%= link_to 'next', habits_path({ date: param_date + (params[:view] ? 1.week : 1.month), view: params[:view] }) %>
       <% end %>
     </div>
-  <% end %>
 
-  <%= turbo_frame_tag "habits" do %>
-    <% @habits.each do |habit|%>
-      <%= render habit, start_date: @start_date, end_date: @end_date %>
-    <% end %>
-  <% end %>
-
-  <%= turbo_frame_tag "monitored" do %>
-    <% @monitored.each do |habit|%>
-      <%= render habit, start_date: @start_date, end_date: @end_date %>
-    <% end %>
-  <% end %>
-
-  <%= turbo_frame_tag "days" do %>
-    <div class="row">
-      <div class="cell">
-        DAY %
+    <%= turbo_frame_tag do %>
+      <div class="row">
+        <span class="cell"></span>
+        <% @days_of_month.each do |day| %>
+          <span class="cell">
+            <%= day.strftime('%-d') %>
+            <br>
+            <small>
+              <%= day.strftime('%a') %>
+            </small>
+          </span>
+        <% end %>
       </div>
-      <% @days.each do |day| %>
-        <%= turbo_frame_tag "#{day.date}-percentage", class: "cell" do %>
-          <%= habit_day_percentage(day.total_tasks,
+    <% end %>
+
+    <%= turbo_frame_tag "habits" do %>
+      <% @habits.each do |habit|%>
+        <%= render habit, start_date: @start_date, end_date: @end_date %>
+      <% end %>
+    <% end %>
+
+    <%= turbo_frame_tag "monitored" do %>
+      <% @monitored.each do |habit|%>
+        <%= render habit, start_date: @start_date, end_date: @end_date %>
+      <% end %>
+    <% end %>
+
+    <%= turbo_frame_tag "days" do %>
+      <div class="row">
+        <div class="cell">
+          DAY %
+        </div>
+        <% @days.each do |day| %>
+          <%= turbo_frame_tag "#{day.date}-percentage", class: "cell" do %>
+            <%= habit_day_percentage(day.total_tasks,
                                    day.completed_tasks,
                                    day.total_habits,
                                    day.completed_habits) %>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <%= turbo_frame_tag Habit.new do %>
+    <%= link_to "New habit", new_habit_path %>
   <% end %>
-</div>
-<br>
-<%= turbo_frame_tag Habit.new do %>
-  <%= link_to "New habit", new_habit_path %>
 <% end %>
