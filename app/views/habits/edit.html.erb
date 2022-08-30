@@ -3,3 +3,5 @@
 <%= turbo_frame_tag @habit do %>
   <%= render 'form', habit: @habit %>
 <% end %>
+<br>
+<%= button_to 'Delete', habit_path(@habit), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } } %>

@@ -1,4 +1,6 @@
 class HabitsController < ApplicationController
+  include HabitsHelper
+
   def index
     @start_date = today.beginning_of_month
     @end_date = today # @start_date.end_of_month
@@ -78,6 +80,8 @@ class HabitsController < ApplicationController
 
   def create
     @habit = Habit.new(habit_params)
+    @habit.frequency = habit_frequency
+
     @habit.user_id = current_user.id
 
     respond_to do |format|
@@ -98,6 +102,7 @@ class HabitsController < ApplicationController
 
   def update
     @habit = Habit.find(params[:id])
+    @habit.frequency = habit_frequency
 
     respond_to do |format|
       if @habit.update!(habit_params)
@@ -108,11 +113,16 @@ class HabitsController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    @habit = Habit.find(params[:id])
+    @habit.destroy
+
+    redirect_to habits_path
+  end
 
   private
 
   def habit_params
-    params.require(:habit).permit(:name, :daily_target, :weekly_target, :status)
+    params.require(:habit).permit(:name, :daily_target, :weekly_target, :status, :frequency)
   end
 end

@@ -13,8 +13,10 @@
       <%= form.text_field :weekly_target %>
     </p>
     <p>
-      <%= form.label :frequency %><br>
-      <%= form.text_field :frequency %>
+      <%= form.collection_check_boxes(:frequency,
+                                      { 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6, 'Sun': 7 },
+                                      :last,
+                                      :first) %>
     </p>
     <p>
       <%= form.submit data: { turbo_frame: "_top"} %>

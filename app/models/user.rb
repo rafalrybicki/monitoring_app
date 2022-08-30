@@ -19,6 +19,7 @@ class User < ApplicationRecord
     Quote.create!(user_id: id, content: 'The greater the effort, the bigger the results')
     Quote.create!(user_id: id, content: 'The longer we wait, the harder it will be')
     Quote.create!(user_id: id, content: 'Now is the time to act')
+    Quote.create!(user_id: id, content: 'Knowledge is king')
 
     start_date = Date.current.beginning_of_month
 
