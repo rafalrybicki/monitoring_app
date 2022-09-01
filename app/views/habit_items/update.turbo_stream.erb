@@ -14,12 +14,12 @@
                                              @day.completed_habits) %>
 
 <% if @habit_item.date == today %>
-  <%= turbo_stream.update @habit_item,
+  <%= turbo_stream.update "habit_#{@habit_item.habit_id}",
                           partial: 'days/habit_task',
                           locals: { 
                             habit: OpenStruct.new(
-                              id: @habit_item.id,
-                              habit_id: @habit_item.habit_id,
+                              item_id: @habit_item.id,
+                              id: @habit_item.habit_id,
                               name: @habit_item.habit.name,
                               quantity: @habit_item.quantity,
                               daily_target: @habit_item.habit.daily_target,

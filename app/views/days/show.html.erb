@@ -34,14 +34,9 @@
       <%= link_to "Add new task", new_day_task_path(@day) %>
     <% end %>
   <% end %>
-  <br>
-  <br>
-  <p>habit are not displayed correctly on day view because of habit_item with specific date doesn't exist</p>
-  <br>
 
   <% if @habits.any? %>
     <h2>Habits</h2>
-
     <%= render partial: 'habit_task', collection: @habits, as: :habit %>
   <% end %>
 

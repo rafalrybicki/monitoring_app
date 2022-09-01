@@ -5,6 +5,6 @@ module DaysHelper
 
   def day_habit_css_class(habit)
     return 'green' if habit.quantity >= habit.daily_target
-    return 'red' if habit.quantity < habit.daily_target && habit.date < today
+    return 'red' if habit.quantity < habit.daily_target
   end
 end

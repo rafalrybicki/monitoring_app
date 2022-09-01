@@ -52,13 +52,38 @@ class DaysController < ApplicationController
   end
 
   def set_habits
-    day_habits = @day.habits.joins(:habit).select(:id, :habit_id, :date, :quantity, :name, :daily_target)
+    day_habits = Habit.find_by_sql(['
+      SELECT
+        id,
+        item_id,
+        name,
+        date,
+        quantity,
+        daily_target
+      FROM
+        habits
+      LEFT OUTER JOIN (
+        SELECT
+          date,
+          quantity,
+          id as item_id,
+          habit_id
+        FROM
+          habit_items
+        WHERE
+          date = ?
+      ) as habit_items ON
+        habits.id = habit_items.habit_id
+      WHERE ? = ANY(habits.frequency)
+    ', @day.date, @day.date.wday])
+
     @monitored = []
     @habits = []
     @total_habits = 0
     @completed_habits = 0
 
     day_habits.map do |habit|
+      habit.quantity = habit.quantity.to_i
       if habit.daily_target > 0
         @habits << habit
         @total_habits += habit.daily_target

@@ -25,16 +25,6 @@ class HabitItemsController < ApplicationController
     end
   end
 
-  # def increment
-  #   @habit_item = HabitItem.find_or_create!(habit_id: params[:habit_id], date; params[:date])
-  #   @habit_item.increment!(:quantity)
-  # end
-
-  # def decrement
-  #   @habit_item = HabitItem.find_or_create!(habit_id: params[:habit_id], date; params[:date])
-  #   @habit_item.decrement!(:quantity)
-  # end
-
   private
 
   def habit_item_params

@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "habit_item_#{habit.id}" do %>
+<%= turbo_frame_tag "habit_#{habit.id}" do %>
   <div class="day-habit <%= day_habit_css_class(habit) if habit.daily_target > 0 %>">
     <% if habit.daily_target > 0 %>
       <%= habit.name %>
@@ -7,7 +7,12 @@
     <% else %>
       <%= habit.name %> - <%= habit.quantity %>
     <% end %>
-    <%= button_to '+', habit_item_path(habit.id, habit_item: { quantity: habit.quantity + 1 }), method: :patch %>
-    <%= button_to '-', habit_item_path(habit.id, habit_item: { quantity: habit.quantity - 1 }), method: :patch %>
+
+    <% if habit.item_id %>
+      <%= button_to '+', habit_item_path(habit.item_id, habit_item: { quantity: habit.quantity + 1 }), method: :patch %>
+      <%= button_to '-', habit_item_path(habit.item_id, habit_item: { quantity: habit.quantity - 1 }), method: :patch %>
+    <% else %>
+      <%= button_to '+', habit_items_path(habit_item: { quantity: 1, habit_id: habit.id, date: today }), method: :create %>
+    <% end %>
   </div>
 <% end %>
