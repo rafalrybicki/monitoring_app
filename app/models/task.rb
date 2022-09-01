@@ -17,4 +17,8 @@ class Task < ApplicationRecord
   def future?
     date > Date.today
   end
+
+  def self.default_scope
+    order(:date)
+  end
 end
