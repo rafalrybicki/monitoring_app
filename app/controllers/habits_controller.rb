@@ -3,15 +3,30 @@ class HabitsController < ApplicationController
 
   def index
     @start_date = params[:view] ? param_date.beginning_of_week : param_date.beginning_of_month
-    @end_date = params[:view] ? @start_date.end_of_week : param_date # @start_date.end_of_month
+    @end_date = params[:view] ? @start_date.end_of_week : @start_date.end_of_month
+    @end_date = today if @start_date == today.beginning_of_month
     @days_of_month = params[:view] ? @start_date..@end_date : @start_date..@start_date.end_of_month
 
-    all_habits = Habit.order(:date).eager_load(:items)
+    habits = current_user.habits.order(:created_at).all
+    habits_with_items = current_user.habits
+                                    .order(:created_at)
+                                    .eager_load(:items)
+                                    .where('date >= ? AND date <= ?', @start_date, @end_date)
 
-    # .where('habit_items.date >= ? AND habit_items.date <= ?', @start_date, @end_date)
+    @habits = []
+    @monitored = []
 
-    @habits = all_habits.select { |habit| habit.daily_target > 0 }
-    @monitored = all_habits.select { |habit| habit.daily_target == 0 }
+    habits.each do |habit|
+      habit_with_items = habits_with_items.find { |h| h.id = habit.id }
+
+      habit.items + habit_with_items.items if habit_with_items
+
+      if habit.daily_target > 0
+        @habits << habit
+      else
+        @monitored << habit
+      end
+    end
 
     @days = Day.find_by_sql(["
       SELECT

@@ -34,8 +34,12 @@
       }
 
       &:first-child {
-        min-width: 100px;
-        max-width: 100px;
+        min-width: 130px;
+        max-width: 130px;
+      }
+
+      &.monitored {
+        background-color: lightskyblue;
       }
 
       &.green {

@@ -13,7 +13,7 @@
                                              @day.total_habits,
                                              @day.completed_habits) %>
 
-<% if @habit_item.date == today %>
+<% if params[:controller] == 'today' %>
   <%= turbo_stream.update "habit_#{@habit_item.habit_id}",
                           partial: 'days/habit_task',
                           locals: { 
@@ -26,3 +26,5 @@
                               date: @habit_item.date
                             )} %>
 <% end %>
+
+<%= render_random_quote %>
