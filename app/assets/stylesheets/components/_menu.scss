@@ -1,14 +1,42 @@
 .menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  padding: 10px;
   font-weight: bold;
   color: white;
   background-color: blue;
+  overflow: hidden;
+  height: 40px;
+  padding: 10px;
 
   li {
     margin-bottom: 10px;
+    list-style: none;
+  }
+
+  .btn {
+    display: block;
+    margin-left: auto;
+  }
+
+
+  @media only screen and (max-width: 991px) {
+
+    &.open {
+      height: auto;
+    }
+
+    ul {
+      text-align: center;
+      padding: 5px;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+
+    .btn {
+      display: none
+    }
   }
 }

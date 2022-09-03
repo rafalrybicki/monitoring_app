@@ -1,16 +1,21 @@
-<nav class="menu">
+<nav id="menu" class="menu">
+  <button class="btn"
+          data-controller="base"
+          data-action="click->base#toggleMenu">
+    <%= bootstrap_icon "menu-button-wide", color: "white" %>
+  </button>
   <ul>
     <li>
-      <%= link_to 'Today', today_path %>
+      <%= link_to "Today", today_path %>
     </li>
     <li>
-      <%= link_to 'Habits', habits_path %>
+      <%= link_to "Habits", habits_path %>
     </li>
     <li>
-      <%= link_to 'Days', days_path %>
+      <%= link_to "Days", days_path %>
     </li>
     <li>
-      <%= link_to 'Quotes', quotes_path %>
+      <%= link_to "Quotes", quotes_path %>
     </li>
   </ul>
 </nav>
