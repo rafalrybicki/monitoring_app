@@ -1,10 +1,36 @@
 .day {
-  .day-habit {
+  min-width: 460px;
+
+  .actions {
+    display: flex;
+    position: absolute;
+    top: -9px;
+    left: -55px;
+
+    font-size: 30px;
+
+    a {
+      margin-right: 10px;
+    }
+  }
+
+  h2 {
+    margin: 20px 0 5px;
+    font-size: 20px;
+  }
+
+  .task-habit {
     display: flex;
 
     button {
+      margin-top: 1px;
       margin-left: 5px;
-      width: 20px;
     }
+  }
+
+  a {
+    display: block;
+    margin-top: 10px;
+    color: navy;
   }
 }

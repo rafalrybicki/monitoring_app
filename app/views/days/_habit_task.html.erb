@@ -1,5 +1,5 @@
-<%= turbo_frame_tag "habit_#{habit.id}" do %>
-  <div class="day-habit <%= day_habit_css_class(habit) if habit.daily_target > 0 %>">
+<%= turbo_frame_tag "task_habit_#{habit.id}" do %>
+  <div class="task-habit <%= day_habit_css_class(habit) if habit.daily_target > 0 %>">
     <% if habit.daily_target > 0 %>
       <%= habit.name %>
       <%= habit.quantity %>
@@ -9,10 +9,23 @@
     <% end %>
 
     <% if habit.item_id %>
-      <%= button_to '+', habit_item_path(habit.item_id, habit_item: { quantity: habit.quantity + 1 }), method: :patch %>
-      <%= button_to '-', habit_item_path(habit.item_id, habit_item: { quantity: habit.quantity - 1 }), method: :patch %>
+      <%= button_to habit_item_path(habit.item_id,
+                    habit_item: { quantity: habit.quantity + 1 }),
+                    method: :patch do %>
+        <%= bootstrap_icon "plus-square" %>
+      <% end %>
+
+      <% if habit.quantity > 0 %>
+        <%= button_to habit_item_path(habit.item_id,
+                    habit_item: { quantity: habit.quantity - 1 }),
+                    method: :patch do %>
+          <%= bootstrap_icon "dash-square" %>
+        <% end %>
+      <% end %>
     <% else %>
-      <%= button_to '+', habit_items_path(habit_item: { quantity: 1, habit_id: habit.id, date: today }), method: :create %>
+      <%= button_to habit_items_path(habit_item: { quantity: 1, habit_id: habit.id, date: today }), method: :create do %>
+        <%= bootstrap_icon "plus-square" %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

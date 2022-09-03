@@ -1,5 +1,5 @@
 <div class="day">
-  <div class="day__links">
+  <div class="actions">
     <%= link_to '<', day_path(@day.id - 1) %>
     <%= link_to '>', day_path(@day.id + 1) %>
   </div>
@@ -13,6 +13,11 @@
       <% end %>
     <% end %>
   </h1>
+
+  <% if @habits.any? %>
+    <h2>Habits</h2>
+    <%= render partial: 'habit_task', collection: @habits, as: :habit %>
+  <% end %>
 
   <% if @overdue_tasks && @overdue_tasks.any? %>
     <div>
@@ -35,11 +40,6 @@
     <% end %>
   <% end %>
 
-  <% if @habits.any? %>
-    <h2>Habits</h2>
-    <%= render partial: 'habit_task', collection: @habits, as: :habit %>
-  <% end %>
-
   <% if @monitored.any? %>
     <h2>Monitored</h2>
 
@@ -49,6 +49,6 @@
   <%= turbo_frame_tag "#{@day.date}-summary" do %>
     <h2>Summary</h2>
     <%= @day.summary %>
-    <%= link_to @day.summary.body ? 'edit' : 'add', edit_day_path(@day.date) %>
+    <%= link_to (@day.summary.body ? 'Edit' : 'Add') + ' summary', edit_day_path(@day.date) %>
   <% end %>
 </div>

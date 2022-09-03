@@ -13,9 +13,7 @@
                                              @day.total_habits,
                                              @day.completed_habits) %>
 
-<% if params[:controller] == 'today' %>
-  <% debugger %>
-  <%= turbo_stream.update "habit_#{@habit_item.habit_id}",
+<%= turbo_stream.replace "task_habit_#{@habit_item.habit_id}",
                           partial: 'days/habit_task',
                           locals: { 
                             habit: OpenStruct.new(
@@ -26,6 +24,5 @@
                               daily_target: @habit_item.habit.daily_target,
                               date: @habit_item.date
                             )} %>
-<% end %>
 
 <%= render_random_quote %>
