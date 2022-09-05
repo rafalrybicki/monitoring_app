@@ -1,6 +1,7 @@
 .habits {
   display: table;
-  overflow-x: auto;
+  width: 100px;
+  overflow: scroll;
 
   turbo-frame {
     min-width: 100%;

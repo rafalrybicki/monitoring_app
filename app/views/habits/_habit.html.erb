@@ -1,6 +1,6 @@
 <%= turbo_frame_tag habit do %>
   <div class="row">
-    <div class="cell">
+    <div class="cell sticky">
       <%= link_to habit.name, edit_habit_path(habit), data: { turbo_frame: "_top" } %>
     </div>
     <% (start_date..end_date).each do |date| %>
