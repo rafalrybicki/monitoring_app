@@ -1,6 +1,8 @@
-<h1>All days</h1>
-<%= session[:day_values] %>
-<% @days.each do |day| %>
-  <%= day.date %>
-  <br>
-<% end %>
+<div class="container">
+  <h1>All days</h1>
+  <%= session[:day_values] %>
+  <% @days.each do |day| %>
+    <%= day.date %>
+    <br>
+  <% end %>
+</div>

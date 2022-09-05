@@ -1,6 +1,4 @@
 .day {
-  min-width: 460px;
-
   .actions {
     display: flex;
     position: absolute;
@@ -32,5 +30,10 @@
     display: block;
     margin-top: 10px;
     color: navy;
+  }
+
+
+  @media only screen and (min-width: 992px) {
+    max-width: 500px;
   }
 }

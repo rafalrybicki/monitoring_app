@@ -1,7 +1,9 @@
-<%= turbo_frame_tag 'quotes' do %>
-  <%= render @quotes %>
-<% end %>
+<div class="container quotes">
+  <%= turbo_frame_tag 'quotes' do %>
+    <%= render @quotes %>
+  <% end %>
 
-<%= turbo_frame_tag Quote.new do %>
-  <%= link_to 'Add new quote', new_quote_path %>
-<% end %>
+  <%= turbo_frame_tag Quote.new do %>
+    <%= link_to 'Add new quote', new_quote_path %>
+  <% end %>
+</div>

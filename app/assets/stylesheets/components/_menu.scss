@@ -1,4 +1,8 @@
 .menu {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
   font-weight: bold;
   color: white;
   background-color: navy;
@@ -16,8 +20,8 @@
     margin-left: auto;
   }
 
-
   @media only screen and (max-width: 991px) {
+    width: 100%;
 
     &.open {
       height: auto;
@@ -25,14 +29,11 @@
 
     ul {
       text-align: center;
-      padding: 5px;
+      padding-top: 10px;
     }
   }
 
   @media only screen and (min-width: 992px) {
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 100vh;
 
     .btn {
