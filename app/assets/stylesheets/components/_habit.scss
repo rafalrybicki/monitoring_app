@@ -1,63 +1,110 @@
 .habits {
-  display: table;
-  width: 100px;
-  overflow: scroll;
-
-  turbo-frame {
-    min-width: 100%;
-    display: block;
-    min-height: 30px;
-  }
+  position: relative;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: auto;
+  margin-top: 40px;
 
   .actions {
+    position: sticky;
+    z-index: 11;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 100%;
     text-align: center;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .active {
       background-color: lightgrey;
     }
   }
 
-  .row {
-    display: table-row;
-    width: 100%;
+  .table {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+
+    margin: 0 auto;
 
     .cell {
-      display: table-cell;
+      min-height: 50px;
+      max-height: 50px;
       min-width: 50px;
-      text-align: center;
-      vertical-align: middle;
-      color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-      &:hover {
+    .row {
+      display: flex;
+      position: sticky;
+      left: 0;
+
+      &.days {
+        top: 40px;
+        left: 0;
+        z-index: 10;
+        background-color: greenyellow;
+      }
+
+      .cell {
+        min-height: 50px;
+        max-height: 50px;
+        min-width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: default;
+
+        &:first-child {
+          z-index: 10;
+          width: 130px;
+          position: sticky;
+          left: 0;
+          background-color: greenyellow;
+        }
+
+        &:hover {
+          .button_to {
+            opacity: 1;
+          }
+        }
+
+        &.monitored {
+          background-color: lightskyblue;
+        }
+
+        &.green {
+          background-color: green;
+        }
+
+        &.red {
+          background-color: red;
+        }
+
+        &.lightgrey {
+          background: lightgrey;
+        }
+
         .button_to {
-          opacity: 1;
+          opacity: 0;
+          height: 16px;
+          background-color: white;
         }
       }
-
-      &:first-child {
-        min-width: 130px;
-        max-width: 130px;
-      }
-
-      &.monitored {
-        background-color: lightskyblue;
-      }
-
-      &.green {
-        background-color: green;
-      }
-
-      &.red {
-        background-color: red;
-      }
-
-      &.lightgrey {
-        background: lightgrey;
-      }
-
-      .button_to {
-        opacity: 0;
-      }
     }
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .habits {
+    margin-top: 0;
+    width: 100%;
   }
 }

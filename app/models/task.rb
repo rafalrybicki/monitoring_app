@@ -19,6 +19,6 @@ class Task < ApplicationRecord
   end
 
   def self.default_scope
-    order(:date)
+    order(:created_at)
   end
 end

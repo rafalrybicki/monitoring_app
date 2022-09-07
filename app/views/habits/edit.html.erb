@@ -1,7 +1,9 @@
-<h1>Edit habit</h1>
+<div class="container">
+  <h1>Edit habit</h1>
 
-<%= turbo_frame_tag @habit do %>
-  <%= render 'form', habit: @habit %>
-<% end %>
-<br>
-<%= button_to 'Delete', habit_path(@habit), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } } %>
+  <%= turbo_frame_tag @habit do %>
+    <%= render 'form', habit: @habit %>
+  <% end %>
+  <br>
+  <%= button_to 'Delete', habit_path(@habit), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } } %>
+</div>
