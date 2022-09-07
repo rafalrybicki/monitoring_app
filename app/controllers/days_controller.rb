@@ -83,7 +83,7 @@ class DaysController < ApplicationController
     @completed_habits = 0
 
     day_habits.map do |habit|
-      habit.quantity = habit.quantity.to_i # 0 if nil
+      habit.quantity = habit.quantity.to_i # 0 if habit_item doesn't exist
       if habit.daily_target > 0
         habit.date = @day.date
         @habits << habit

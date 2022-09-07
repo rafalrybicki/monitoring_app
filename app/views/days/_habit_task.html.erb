@@ -8,7 +8,7 @@
       <%= habit.name %> - <%= habit.quantity %>
     <% end %>
 
-    <% if habit.item_id %>
+    <% if habit.item_id && habit.date == today %>
       <%= button_to habit_item_path(habit.item_id,
                     habit_item: { quantity: habit.quantity + 1 }),
                     method: :patch do %>
@@ -22,7 +22,7 @@
           <%= bootstrap_icon "dash-square" %>
         <% end %>
       <% end %>
-    <% else %>
+    <% elsif habit.date == today %>
       <%= button_to habit_items_path(habit_item: { quantity: 1, habit_id: habit.id, date: today }), method: :create do %>
         <%= bootstrap_icon "plus-square" %>
       <% end %>
