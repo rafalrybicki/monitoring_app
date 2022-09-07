@@ -24,12 +24,7 @@ body {
   max-width: 100%;
   margin-top: 40px;
   padding: 10px;
-}
-
-@media only screen and (min-width: 992px) {
-  .container {
-    margin-top: 20px;
-  }
+  overflow: auto;
 }
 
 button {
@@ -41,4 +36,10 @@ button {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+@media only screen and (min-width: 992px) {
+  .container {
+    margin-top: 20px;
+  }
 }

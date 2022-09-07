@@ -1,12 +1,12 @@
 .task {
   display: flex;
 
-  &--completed {
-    color: green;
+  &.success {
+    color: $success;
   }
 
-  &--not-completed {
-    color: red;
+  &.fail {
+    color: $fail;
     cursor: not-allowed;
   }
 

@@ -20,6 +20,14 @@
   .task-habit {
     display: flex;
 
+    &.success {
+      color: $success;
+    }
+
+    &.fail {
+      color: $fail;
+    }
+
     button {
       margin-top: 1px;
       margin-left: 5px;
@@ -29,7 +37,7 @@
   a {
     display: block;
     margin-top: 10px;
-    color: navy;
+    color: $primary;
   }
 
 

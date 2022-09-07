@@ -1,5 +1,5 @@
 <%= turbo_frame_tag task do %>
-  <div class="task<%= ' task--not-completed' if task.not_completed? %><%= ' task--completed' if task.completed? %>">
+  <div class="task<%= ' fail' if task.not_completed? %><%= ' success' if task.completed? %>">
     <%= button_to day_task_path(@day, task, task: { completed: !task.completed }),
                   method: :patch, 
                   class: "task__content",

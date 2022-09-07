@@ -19,7 +19,7 @@
     justify-content: center;
 
     .active {
-      background-color: lightgrey;
+      background-color: $neutral;
     }
   }
 
@@ -76,26 +76,26 @@
           }
         }
 
+        &.success {
+          background-color: $success;
+        }
+
+        &.fail {
+          background-color: $fail;
+        }
+
         &.monitored {
           background-color: lightskyblue;
         }
 
-        &.green {
-          background-color: green;
-        }
-
-        &.red {
-          background-color: red;
-        }
-
-        &.lightgrey {
-          background: lightgrey;
+        &.neutral {
+          background: $neutral;
         }
 
         .button_to {
           opacity: 0;
           height: 16px;
-          background-color: white;
+          background-color: $light;
         }
       }
     }

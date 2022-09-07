@@ -83,8 +83,9 @@ class DaysController < ApplicationController
     @completed_habits = 0
 
     day_habits.map do |habit|
-      habit.quantity = habit.quantity.to_i
+      habit.quantity = habit.quantity.to_i # 0 if nil
       if habit.daily_target > 0
+        habit.date = @day.date
         @habits << habit
         @total_habits += habit.daily_target
         @completed_habits += habit.quantity <= habit.daily_target ? habit.quantity : habit.daily_target
