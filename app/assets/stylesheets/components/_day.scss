@@ -1,15 +1,19 @@
 .day {
-  .actions {
-    display: flex;
-    position: absolute;
-    top: -9px;
-    left: -55px;
+  position: relative;
+  width: 100%;
 
+  .actions {
+    position: absolute;
+    display: flex;
     font-size: 30px;
 
     a {
       margin-right: 10px;
     }
+  }
+
+  h1 {
+    font-size: 30px;
   }
 
   h2 {
@@ -35,13 +39,30 @@
   }
 
   a {
-    display: block;
-    margin-top: 10px;
     color: $primary;
   }
 
+  turbo-frame a {
+    display: block;
+    margin-top: 10px;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .actions {
+      right: 0;
+    }
+
+    h1 {
+      margin-right: 45px;
+    }
+  }
 
   @media only screen and (min-width: 992px) {
     max-width: 500px;
+    overflow: visible;
+
+    .actions {
+      left: -45px
+    }
   }
 }
