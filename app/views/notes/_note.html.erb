@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "note" do %>
+  <%= note.name %>
+  <br>
+  <br>
+  <%= note.content %>
+  <br>
+  <%= button_to edit_note_path(@note), method: :get do %>
+    <%= bootstrap_icon "pencil-square" %>
+  <% end %>
+  <br>
+  <%= button_to note_path(@note),
+                method: :delete,
+                form: { data: { turbo_confirm: "Are you sure?" } } do %>
+    <%= bootstrap_icon "trash3-fill" %>
+  <% end %>
+<% end %>

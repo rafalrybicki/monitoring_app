@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :habits, dependent: :destroy
   has_many :quotes, dependent: :destroy
+  has_many :notes, dependent: :destroy
 
   after_create :generate_year
 

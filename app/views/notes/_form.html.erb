@@ -1,0 +1,30 @@
+<%= turbo_frame_tag "note" do %>
+  <%= form_with model: note do |form| %>
+    <p>
+      <%= form.label :name %>
+      <%= form.text_field :name, autocomplete: 'off' %>
+    </p>
+    <br>
+    <p>
+      <%= form.rich_text_area :content %>
+    </p>
+    <p>
+      <%= form.submit id: "submit-btn" %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if false %>
+  <%= form_with id: 'task-form',
+                class: "task-form",
+                model: [project, task],
+                data: { 
+                  controller: "task",
+                  action: "turbo:submit-end->task#resetContent",
+                  prev_date: str_date(task.target_date),
+                  prev_content: task.content,
+                  current_date: str_date(task.target_date),
+                  current_content: task.content
+                } do |form| %>
+  <% end %>
+<% end %>

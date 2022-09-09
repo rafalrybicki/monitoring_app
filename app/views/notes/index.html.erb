@@ -1,0 +1,20 @@
+<div class="container notes">
+  <div>
+    <%= turbo_frame_tag "notes" do %>
+      <ul>
+        <% @notes.each do |note| %>
+          <li>
+            <%= link_to note.name, note, data: { turbo_frame: :note } %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+    <br>
+    <%= link_to 'Add new note', new_note_path, data: { turbo_frame: :note } %>
+    <br>
+  </div>
+
+  <div class="note">
+    <%= render @note %>
+  </div>
+</div>
