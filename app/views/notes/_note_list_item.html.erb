@@ -1,0 +1,5 @@
+<%= turbo_frame_tag note do %>
+  <li>
+    <%= link_to note.name, note, data: { turbo_frame: :note } %>
+  </li>
+<% end %>

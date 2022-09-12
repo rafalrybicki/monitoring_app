@@ -14,10 +14,12 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
     @note.user_id = current_user.id
 
-    if @note.save
-      redirect_to notes_path({ id: @note.id })
-    else
-      render :new, status: :unprocessable_entity, notice: 'Something went wrong'
+    respond_to do |format|
+      if @note.save!
+        format.turbo_stream
+      else
+        render :new, status: :unprocessable_entity, notice: 'Something went wrong'
+      end
     end
   end
 
@@ -26,17 +28,17 @@ class NotesController < ApplicationController
   def edit; end
 
   def update
-    if @note.update!(note_params)
-      redirect_to notes_path({ id: @note.id })
-    else
-      render :edit, status: :unprocessable_entity, notice: 'Something went wrong'
+    respond_to do |format|
+      if @note.update!(note_params)
+        format.turbo_stream
+      else
+        render :edit, status: :unprocessable_entity, notice: 'Something went wrong'
+      end
     end
   end
 
   def destroy
-    @note.destroy
-
-    redirect_to notes_path
+    @note.delete
   end
 
   private

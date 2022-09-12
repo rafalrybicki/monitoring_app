@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "note", @note %>
+<%= turbo_stream.update @note, partial: "note_list_item", locals: { note: @note } %>
+<%= render_random_quote %>
+
+<%# moze tak jak było tyko że dać "note_#{@note.id}" %>
