@@ -71,7 +71,7 @@ class TasksController < ApplicationController
   end
 
   def set_day
-    @day = current_user.days.find(params[:day_id])
+    @day = current_user.days.friendly.find(params[:day_id])
   end
 
   def set_task

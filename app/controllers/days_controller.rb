@@ -41,7 +41,7 @@ class DaysController < ApplicationController
 
   def set_day
     @day = if params[:action] == 'show'
-             current_user.days.preload(:tasks, :habits).find(params[:id])
+             current_user.days.preload(:tasks, :habits).friendly.find(params[:id])
            else
              current_user.days.preload(:tasks, :habits).find_by_date(Date.today)
            end
