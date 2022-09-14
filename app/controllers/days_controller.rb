@@ -2,7 +2,7 @@ class DaysController < ApplicationController
   before_action :set_day, except: %i[index]
   before_action :set_tasks, except: %i[index edit update]
   before_action :set_habits, except: %i[index edit update]
-  before_action :set_day_values, except: %i[index edit update]
+  before_action :set_day_values, only: %i[show today]
 
   def index
     @days = current_user.days
@@ -25,13 +25,6 @@ class DaysController < ApplicationController
   end
 
   def today
-    session[:day_values] = {
-      'total_tasks' => @day.total_tasks,
-      'completed_tasks' => @day.completed_tasks,
-      'completed_habits' => @completed_habits,
-      'total_habits' => @total_habits
-    }
-
     @overdue_tasks = current_user.tasks.includes(:day).not_completed
 
     render :show

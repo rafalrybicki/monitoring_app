@@ -59,10 +59,11 @@
   }
 
   @media only screen and (min-width: 992px) {
-    max-width: 500px;
+    // max-width: 600px;
+    padding: 20px calc(50vw - 285px);
 
     .actions {
-      left: -45px
+      left: calc(50vw - 345px)
     }
   }
 }

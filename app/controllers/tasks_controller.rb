@@ -47,7 +47,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.delete
+    @task.destroy
     @day.decrement!(:total_tasks)
   end
 
