@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "#{@day.date}-summary" do %>
+<%= turbo_frame_tag "day-summary" do %>
   <%= form_with model: @day do |form| %>
     <div class="field">
       <%= form.rich_text_area :summary %>

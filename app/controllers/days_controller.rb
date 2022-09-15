@@ -15,7 +15,6 @@ class DaysController < ApplicationController
   def update
     respond_to do |format|
       if @day.update!(params.require(:day).permit(:summary))
-
         format.turbo_stream
         format.html { redirect_to @day }
       else
@@ -33,10 +32,10 @@ class DaysController < ApplicationController
   private
 
   def set_day
-    @day = if params[:action] == 'show'
-             current_user.days.preload(:tasks, :habits).friendly.find(params[:id])
-           else
+    @day = if params[:action] == 'today'
              current_user.days.preload(:tasks, :habits).find_by_date(Date.today)
+           else
+             current_user.days.preload(:tasks, :habits).friendly.find(params[:id])
            end
   end
 

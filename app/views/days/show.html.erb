@@ -46,10 +46,5 @@
     <%= render partial: 'habit_task', collection: @monitored, as: :habit %>
   <% end %>
 
-  <%= turbo_frame_tag "#{@day.date}-summary", data: { controller: "base", action: "turbo:frame-render->base#scrollToBottom" } do %>
-    <h2>Summary</h2>
-    <%= @day.summary %>
-    <%= link_to (@day.summary.body ? 'Edit' : 'Add') + ' summary',
-                edit_day_path(@day.date) %>
-  <% end %>
+  <%= render "day_summary", day: @day %>
 </div>
