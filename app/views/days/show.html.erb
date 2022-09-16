@@ -43,7 +43,7 @@
   <% if @monitored.any? %>
     <h2>Monitored</h2>
 
-    <%= render partial: 'habit_task', collection: @monitored, as: :habit %>
+    <%= render partial: 'monitored_task', collection: @monitored, as: :habit %>
   <% end %>
 
   <%= render "day_summary", day: @day %>

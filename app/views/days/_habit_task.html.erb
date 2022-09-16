@@ -32,7 +32,7 @@
           <%= habit.name %>
         <% end %>
       <% end%>
-    <% elsif habit.date <= tomorrow %>
+    <% elsif habit.date <= Date.tomorrow %>
       <%= bootstrap_icon "square" %>
       <%= habit.name %>
     <% end %>

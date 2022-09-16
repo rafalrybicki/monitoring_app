@@ -13,15 +13,15 @@
                                              @day.total_habits,
                                              @day.completed_habits) %>
 
-<%= turbo_stream.replace "task_habit_#{@habit_item.habit_id}",
-                          partial: 'days/habit_task',
+<%= turbo_stream.replace "task_#{(@daily_target > 0 ? 'habit' : 'monitored')}_#{@habit_item.habit_id}",
+                          partial: "days/#{(@daily_target > 0 ? 'habit' : 'monitored')}_task",
                           locals: { 
                             habit: OpenStruct.new(
                               item_id: @habit_item.id,
                               id: @habit_item.habit_id,
                               name: @habit_item.habit.name,
                               quantity: @habit_item.quantity,
-                              daily_target: @habit_item.habit.daily_target,
+                              daily_target: @daily_target,
                               date: @habit_item.date
                             )} %>
 

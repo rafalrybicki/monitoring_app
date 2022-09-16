@@ -11,6 +11,7 @@ class HabitItemsController < ApplicationController
 
   def update
     @habit_item = HabitItem.find(params[:id])
+    @daily_target = @habit_item.habit.daily_target
     authorize_user(@habit_item.habit.user_id)
 
     respond_to do |format|
