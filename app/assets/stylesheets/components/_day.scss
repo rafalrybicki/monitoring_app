@@ -24,6 +24,9 @@
 
   .task-habit {
     display: flex;
+    align-items: center;
+    font-size: 14px;
+    height: 30px;
 
     &.success {
       color: $success;
@@ -34,8 +37,25 @@
     }
 
     button {
-      margin-top: 1px;
-      margin-left: 5px;
+      position: relative;
+      color: inherit;
+      font-size: inherit;
+      display: flex;
+      align-items: center;
+
+      .progress {
+        display: block;
+        background-color: $success;
+        width: 14px;
+        position: absolute;
+        bottom: 1px;
+        left: 1px;
+        z-index: 11;
+      }
+    }
+
+    svg {
+      margin-right: 5px;
     }
   }
 
