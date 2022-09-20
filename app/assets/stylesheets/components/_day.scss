@@ -1,25 +1,48 @@
 .day {
   position: relative;
   width: 100%;
+  height: max-content;
   padding-bottom: 20px;
+  display: grid;
+  grid-template-areas:
+    'header'
+    'habits'
+    'tasks'
+    'monitored'
+    'summary'
+  ;
+  grid-template-rows: max-content;
+  grid-template-columns: max(100%);
+  row-gap: 15px;
+  column-gap: 20px;
 
-  .actions {
-    position: absolute;
+  >* {
+    height: fit-content;
+  }
+
+  &__header {
+    grid-area: header;
     display: flex;
-    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      font-size: 30px;
+      margin: 0 10px;
+      text-align: center;
+    }
 
     a {
-      margin-right: 10px;
+      font-size: 32px;
     }
   }
 
-  h1 {
-    font-size: 30px;
+  h2 {
+    font-size: 20px;
   }
 
-  h2 {
-    margin: 20px 0 5px;
-    font-size: 20px;
+  &__tasks {
+    grid-area: tasks;
   }
 
   .task-habit,
@@ -64,27 +87,46 @@
     color: $primary;
   }
 
-  turbo-frame a {
-    display: block;
-    margin-top: 10px;
+  &__habits {
+    grid-area: habits;
   }
 
-  @media only screen and (max-width: 991px) {
-    .actions {
-      right: 0;
-    }
-
-    h1 {
-      margin-right: 45px;
-    }
+  &__monitored {
+    grid-area: monitored;
   }
 
-  @media only screen and (min-width: 992px) {
-    // max-width: 600px;
-    padding: 20px calc(50vw - 285px);
+  &__summary {
+    grid-area: summary;
+  }
 
-    .actions {
-      left: calc(50vw - 345px)
+  @media only screen and (min-width: 991px) {
+    width: max-content;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: 40px minmax(200px, auto) auto;
+    grid-template-areas:
+      'header header header'
+      'habits tasks monitored'
+      'summary summary summary'
+    ;
+
+    h2 {
+      text-align: center;
+    }
+
+    &__summary {
+      padding-top: 20px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    &__tasks,
+    &__summary {
+      a {
+        display: block;
+        margin: 10px auto 0;
+        width: max-content;
+      }
     }
   }
 }

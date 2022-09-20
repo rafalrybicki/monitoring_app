@@ -1,4 +1,6 @@
-<%= turbo_frame_tag "day-summary", data: { controller: "base", action: "turbo:frame-render->base#scrollToBottom" } do %>
+<%= turbo_frame_tag "day-summary", 
+                    class: "day__summary",
+                    data: { controller: "base", action: "turbo:frame-render->base#scrollToBottom" } do %>
   <h2>Summary</h2>
   <%= day.summary %>
   <%= link_to (@day.summary.body ? 'Edit' : 'Add') + ' summary', edit_day_path(day.date) %>

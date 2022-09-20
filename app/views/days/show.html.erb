@@ -1,49 +1,56 @@
 <div class="container day">
-  <div class="actions">
+  <div class="day__header">
     <%= link_to '<', day_path(@day.date - 1.day) %>
+    <h1>
+      <%= day_title @day.date %>
+
+      <%= turbo_frame_tag "#{today}-percentage" do %>
+        <% if @day.date <= today && (@day.total_tasks + @habits.size ) > 0 %>
+          <%= day_percentage %>
+        <% end %>
+      <% end %>
+    </h1>
     <%= link_to '>', day_path(@day.date + 1.day) %>
   </div>
 
-  <h1>
-    <%= day_title @day.date %>
-
-    <%= turbo_frame_tag "#{today}-percentage" do %>
-      <% if @day.date <= today && (@day.total_tasks + @habits.size ) > 0 %>
-        <%= day_percentage %>
-      <% end %>
-    <% end %>
-  </h1>
-
   <% if @habits.any? %>
-    <h2>Habits</h2>
-    <%= render partial: 'habit_task', collection: @habits, as: :habit %>
-  <% end %>
-
-  <% if @overdue_tasks && @overdue_tasks.any? %>
-    <div>
-      <h2>Overdue tasks</h2>
-      <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
+    <div class="day__habits">
+      <h2>Habits</h2>
+      <%= render partial: 'habit_task', collection: @habits, as: :habit %>
     </div>
   <% end %>
 
-  <%= turbo_frame_tag 'tasks' do %>
-    <% if @tasks.any? %>
+  <div class="day__tasks">
+    <% if @overdue_tasks && @overdue_tasks.any? %>
+      <div>
+        <h2>Overdue tasks</h2>
+        <%= render partial: 'tasks/task_overdue', collection: @overdue_tasks, as: :task %>
+      </div>
+    <% end %>
+
+    <%= turbo_frame_tag 'tasks' do %>
       <h2>Tasks</h2>
 
       <%= render @tasks %>
     <% end %>
-  <% end %>
 
-  <% if @day.date >= today %>
-    <%= turbo_frame_tag Task.new do %>
-      <%= link_to "Add new task", new_day_task_path(@day) %>
+    <% if @tasks.empty? %>
+      <p>not tasks yet</p>
     <% end %>
-  <% end %>
+
+    <% if @day.date >= today %>
+      <%= turbo_frame_tag Task.new do %>
+        <%= link_to "Add new task", new_day_task_path(@day) %>
+      <% end %>
+    <% end %>
+  </div>
 
   <% if @monitored.any? %>
-    <h2>Monitored</h2>
+    <div class="day__monitored">
+      <h2>Monitored</h2>
 
-    <%= render partial: 'monitored_task', collection: @monitored, as: :habit %>
+      <%= render partial: 'monitored_task', collection: @monitored, as: :habit %>
+    </div>
   <% end %>
 
   <%= render "day_summary", day: @day %>
