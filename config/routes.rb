@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'notes/index'
-  get 'notes/new'
-  get 'notes/create'
-  get 'notes/edit'
-  get 'notes/update'
-  get 'notes/delete'
   root to: redirect('/today')
 
   get '/today', to: 'days#today'
@@ -19,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :habits
 
-  resources :habit_items, only: %i[create update]
+  patch 'habit_item', to: 'habit_items#update'
 
   resources :quotes, except: %i[show]
 

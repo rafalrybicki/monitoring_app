@@ -1,23 +1,15 @@
 class HabitItemsController < ApplicationController
-  def create
-    @habit_item = HabitItem.create!(habit_item_params)
-    @day = day(@habit_item.date)
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to habits_path }
-    end
-  end
-
   def update
-    @habit_item = HabitItem.find(params[:id])
-    @daily_target = @habit_item.habit.daily_target
-    authorize_user(@habit_item.habit.user_id)
+    @habit_item = HabitItem.find_or_create_by!(date: params[:date], habit_id: params[:habit_id])
 
     respond_to do |format|
-      if @habit_item.update!(habit_item_params)
-        @day = day(@habit_item.date)
+      if @habit_item
+        @habit_item.increment!(:quantity) if params[:type] == 'increment'
+        @habit_item.decrement!(:quantity) if params[:type] == 'decrement' && @habit_item.quantity > 0
 
+        @view = params[:view]
+        @daily_target = @habit_item.habit.daily_target
+        # @day = day(@habit_item.date) if @view == 'habits'
         format.turbo_stream
         format.html { redirect_to :back }
       else
@@ -29,38 +21,40 @@ class HabitItemsController < ApplicationController
   private
 
   def habit_item_params
-    params.require(:habit_item).permit(:habit_id, :quantity, :date)
+    params.require(:habit_item).permit(:habit_id, :date, :action)
   end
 
-  def day(date)
-    Day.find_by_sql(["
-      SELECT
-        days.date,
-        days.total_tasks,
-        days.completed_tasks,
-        SUM(
-          CASE WHEN habits.quantity > habits.daily_target THEN habits.daily_target ELSE habits.quantity END
-        ) as completed_habits,
-        SUM(habits.daily_target) as total_habits
-      FROM
-        days
-        LEFT OUTER JOIN (
-          SELECT
-            date,
-            quantity,
-            daily_target
-          FROM
-            habit_items
-            JOIN habits ON habit_items.habit_id = habits.id
-          WHERE
-            habits.daily_target > 0
-        ) as habits ON days.date = habits.date
-      WHERE
-        days.date = ?
-      GROUP BY
-        days.date,
-        days.total_tasks,
-        days.completed_tasks
-    ", date]).first
-  end
+  # def update_day_percentage(date); end
+
+  # def day(date)
+  #   Day.find_by_sql(["
+  #     SELECT
+  #       days.date,
+  #       days.total_tasks,
+  #       days.completed_tasks,
+  #       SUM(
+  #         CASE WHEN habits.quantity > habits.daily_target THEN habits.daily_target ELSE habits.quantity END
+  #       ) as completed_habits,
+  #       SUM(habits.daily_target) as total_habits
+  #     FROM
+  #       days
+  #       LEFT OUTER JOIN (
+  #         SELECT
+  #           date,
+  #           quantity,
+  #           daily_target
+  #         FROM
+  #           habit_items
+  #           JOIN habits ON habit_items.habit_id = habits.id
+  #         WHERE
+  #           habits.daily_target > 0
+  #       ) as habits ON days.date = habits.date
+  #     WHERE
+  #       days.date = ?
+  #     GROUP BY
+  #       days.date,
+  #       days.total_tasks,
+  #       days.completed_tasks
+  #   ", date]).first
+  # end
 end
