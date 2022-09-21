@@ -1,20 +1,20 @@
-<% if false && @daily_target > 0 %>
-  <%= turbo_stream.update "#{@habit_item.date}-percentage",
-                          habit_day_percentage(@day.total_tasks,
-                                              @day.completed_tasks,
-                                              @day.total_habits,
-                                              @day.completed_habits) %>
-<% end %>
-
 <% if @view == "habits" %>
   <%= turbo_stream.replace "habit-#{@habit_item.habit_id}-#{@habit_item.date}",
                             partial: 'habit_item',
                             locals: {
                               habit_item: @habit_item,
-                              target: @habit_item.habit.daily_target,
+                              target: @daily_target,
                               date: @habit_item.date,
                               habit_id: @habit_item.habit_id
                             } %>
+
+  <% if @daily_target > 0 %>
+    <%= turbo_stream.update "#{@habit_item.date}-percentage",
+                            habit_day_percentage(@day.total_tasks,
+                                                 @day.completed_tasks,
+                                                 @day.total_habits,
+                                                 @day.completed_habits) %>
+  <% end %>
 <% end %>
 
 <% if @view == 'day' %>
@@ -29,6 +29,9 @@
                                 daily_target: @daily_target,
                                 date: @habit_item.date
                               )} %>
+  <% if @daily_target > 0 %>
+    <%= turbo_stream.update "#{@habit_item.date}-percentage", day_percentage %>
+  <% end %>
 <% end %>
 
 <%= render_random_quote %>

@@ -22,53 +22,8 @@
           <% end %>
         <% end %>
       <% end %>
-    <% elsif habit.date <= Date.tomorrow %>
-      <%= bootstrap_icon "square" %>
+    <% elsif habit.date >= Date.tomorrow %>
       <%= habit.name %>
     <% end %>
   </div>
-<% end %>
-
-<% if false %>
-  <%= turbo_frame_tag "task_habit_#{habit.id}" do %>
-    <div class="task-habit <%= day_habit_css_class(habit) if habit.daily_target > 0 %>">
-      <% if habit.date < today %>
-        <%= bootstrap_icon (habit.quantity >= habit.daily_target ? "check-square-fill" : "x-square-fill") %>
-        <%= habit.name %>
-        <% if habit.daily_target > 1 %>
-          <%= habit.quantity %>/<%= habit.daily_target %>
-        <% end %>
-      <% elsif habit.date == today %>
-        <% if habit.item_id %>
-          <% if habit.daily_target > 1 %>
-            <%= button_to habit_item_path(habit.item_id, habit_item: { quantity: habit.quantity + 1 }),
-                        method: :patch do %>
-              <%= bootstrap_icon (habit.quantity >= habit.daily_target ? "check-square-fill" : "square") %>
-              <%= habit.name %>
-              <%= habit.quantity %>/<%= habit.daily_target %>
-              <% if habit.quantity > 0 && habit.quantity < habit.daily_target %>
-                <span class="progress" style="height: <%= 14 * (habit.quantity / habit.daily_target.to_f ) %>px"></span>
-              <% end %>
-
-            <% end %>
-          <% else %>
-            <%= button_to habit_item_path(habit.item_id, habit_item: { quantity: (habit.quantity == 1 ? 0 : 1) }),
-                        method: :patch do %>
-              <%= bootstrap_icon (habit.quantity >= habit.daily_target ? "check-square-fill" : "square" ) %>
-              <%= habit.name %>
-            <% end %>
-          <% end %>
-        <% else %>
-          <%= button_to habit_items_path(habit_item: { quantity: 1, habit_id: habit.id, date: today }), method: :create do %>
-            <%= bootstrap_icon (habit.daily_target > 1 ? "plus-square" : "square") %>
-            <%= habit.name %>
-          <% end %>
-        <% end%>
-      <% elsif habit.date <= Date.tomorrow %>
-        <%= bootstrap_icon "square" %>
-        <%= habit.name %>
-      <% end %>
-    </div>
-  <% end %>
-
 <% end %>

@@ -29,15 +29,8 @@ module ApplicationHelper
   end
 
   def habit_day_percentage(total_tasks, completed_tasks, total_habits, completed_habits)
-    total_habits ||= 0
+    total_habits ||= 0 # because of day model includes total_tasks and completed_tasks
     completed_habits ||= 0
-
-    session[:day_values] = {
-      'total_tasks' => total_tasks,
-      'completed_tasks' => completed_tasks,
-      'completed_habits' => completed_habits,
-      'total_habits' => total_habits
-    }
 
     return '-' if [completed_tasks, completed_habits, total_tasks, total_habits].all?(0)
 
