@@ -34,10 +34,6 @@
       <%= render @tasks %>
     <% end %>
 
-    <% if @tasks.empty? %>
-      <p>not tasks yet</p>
-    <% end %>
-
     <% if @day.date >= today %>
       <%= turbo_frame_tag Task.new do %>
         <%= link_to "Add new task", new_day_task_path(@day) %>

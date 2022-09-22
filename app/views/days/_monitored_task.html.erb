@@ -1,19 +1,19 @@
 <%= turbo_frame_tag "task_monitored_#{habit.id}" do %>
-  <div class="task-monitored">
-    <% if habit.date == today %>
-      <%= button_to habit_item_path({
-                                      habit_id: habit.id,
-                                      date: habit.date,
-                                      type: 'increment',
-                                      view: 'day'
-                                    }), method: :patch do %>
-        <%= bootstrap_icon "plus-square" %>
+  <div class="task task-monitored<%= ' inactive' if habit.date != today %>">
+    <%= button_to habit_item_path({
+                                    habit_id: habit.id,
+                                    date: habit.date,
+                                    type: 'increment',
+                                    view: 'day'
+                                  }),
+                                  disabled: habit.date != today,
+                                  class: "task__content",
+                                  method: :patch do %>
+      <%= bootstrap_icon "plus-square" %>
+      <%= habit.name %>
+      <% if habit.date <= today %>
+        - <%= pluralize(habit.quantity, 'time') %>
       <% end %>
-    <% end %>
-
-    <%= habit.name %>
-    <% if habit.date <= today %>
-      - <%= pluralize(habit.quantity, 'time')%>
     <% end %>
   </div>
 <% end %>

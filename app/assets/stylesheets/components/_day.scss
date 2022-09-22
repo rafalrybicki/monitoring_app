@@ -14,7 +14,7 @@
   grid-template-rows: max-content;
   grid-template-columns: max(100%);
   row-gap: 15px;
-  column-gap: 20px;
+  column-gap: 30px;
 
   >* {
     height: fit-content;
@@ -39,6 +39,7 @@
 
   h2 {
     font-size: 20px;
+    margin-bottom: 10px;
   }
 
   &__tasks {
@@ -47,39 +48,18 @@
 
   .task-habit,
   .task-monitored {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    height: 30px;
-
-    &.success {
-      color: $success;
-    }
-
-    &.fail {
-      color: $fail;
-    }
-
     button {
-      position: relative;
       color: inherit;
-      font-size: inherit;
-      display: flex;
-      align-items: center;
 
       .progress {
         display: block;
         background-color: $success;
-        width: 14px;
+        width: 16px;
         position: absolute;
         bottom: 1px;
         left: 1px;
         z-index: 11;
       }
-    }
-
-    svg {
-      margin-right: 5px;
     }
   }
 
