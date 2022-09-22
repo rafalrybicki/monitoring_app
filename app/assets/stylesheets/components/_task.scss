@@ -1,5 +1,6 @@
 .task {
-  display: flex;
+  position: relative;
+  margin-bottom: 10px;
 
   &.success {
     color: $success;
@@ -7,58 +8,44 @@
 
   &.fail {
     color: $fail;
+  }
+
+  &.inactive &__content {
     cursor: not-allowed;
   }
 
-  &:hover {
-    .button_to .action-btn {
-      opacity: 1;
+  &__content {
+    position: relative;
+    border: none;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 23px;
+    color: inherit;
+    line-height: 1.2;
+
+    svg {
+      position: absolute;
+      left: -23px;
     }
+
   }
 
-  svg {
-    margin-right: 5px;
-  }
-
-  .button_to {
-
-    &:first-of-type,
-    .task__content {
-      color: inherit;
-      flex: 1;
-
-      &:disabled {
-        cursor: not-allowed;
-      }
-    }
+  &__actions {
+    opacity: 0;
+    display: flex;
+    position: absolute;
+    top: 1px;
+    right: 0;
+    background-color: $light;
 
     button {
-      display: flex;
-      align-items: center;
-      height: 30px;
-      border: none;
-      font-size: 14px;
-
-      &.action-btn {
-        margin-left: 4px;
-        opacity: 0;
-      }
+      margin-left: 10px;
     }
   }
-}
 
-.task-form {
-  position: relative;
-  margin: 10px 0;
-
-  input[type="text"] {
-    margin-bottom: 10px;
-    width: 100%;
-  }
-
-  a {
-    position: absolute;
-    bottom: 0;
-    left: 90px
+  &:hover {
+    .task__actions {
+      opacity: 1;
+    }
   }
 }

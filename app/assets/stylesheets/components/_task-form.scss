@@ -1,0 +1,15 @@
+.task-form {
+  position: relative;
+  margin: 10px 0;
+
+  input[type="text"] {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  a {
+    position: absolute;
+    bottom: 0;
+    left: 90px
+  }
+}

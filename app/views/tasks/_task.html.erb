@@ -1,26 +1,26 @@
 <%= turbo_frame_tag task do %>
-  <div class="task<%= ' fail' if task.not_completed? %><%= ' success' if task.completed? %>">
+  <div class="task<%= ' fail' if task.not_completed? %><%= ' success' if task.completed? %><%= ' inactive' if task.not_today? %>">
     <%= button_to day_task_path(@day, task, task: { completed: !task.completed }),
                   method: :patch, 
-                  class: "task__content",
-                  disabled: task.not_today? do %>
+                  disabled: task.not_today?,
+                  class: "task__content" do %>
       <%= bootstrap_icon (task.completed ? "check-square-fill" : task.not_completed? ? "x-square-fill" : "square") %>
       <%= task.content %>
     <% end %>
 
-    <%= button_to edit_day_task_path(@day, task),
-                  method: :get,
-                  class: "action-btn" do %>
-      <%= bootstrap_icon "pencil-square" %>
-    <% end %>
-
-    <% if task.future? %>
-      <%= button_to day_task_path(@day, task),
-                    method: :delete,
-                    form: { data: { turbo_confirm: "Are you sure?" } },
-                    class: "action-btn" do %>
-        <%= bootstrap_icon "trash3-fill", height: 15 %>
+    <div class="task__actions">
+      <%= button_to edit_day_task_path(@day, task), method: :get, class: "action-btn" do %>
+        <%= bootstrap_icon "pencil-square" %>
       <% end %>
-    <% end %>
+
+      <% if task.future? %>
+        <%= button_to day_task_path(@day, task),
+                      method: :delete,
+                      form: { data: { turbo_confirm: "Are you sure?" } },
+                      class: "action-btn" do %>
+          <%= bootstrap_icon "trash3-fill", height: 15 %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 <% end %>
