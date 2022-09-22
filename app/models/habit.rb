@@ -4,6 +4,6 @@ class Habit < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2 }
 
   def self.default_scope
-    order(:created_at)
+    order(:order)
   end
 end
