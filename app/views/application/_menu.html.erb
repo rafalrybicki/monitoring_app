@@ -1,5 +1,5 @@
 <nav id="menu" class="menu">
-  <button class="btn"
+  <button class="menu-btn"
           data-controller="base"
           data-action="click->base#toggleMenu">
     <%= bootstrap_icon "menu-button-wide", color: "white" %>
@@ -21,4 +21,9 @@
       <%= link_to "Quotes", quotes_path %>
     </li>
   </ul>
+  <button class="theme-btn"
+          data-controller="base"
+          data-action="click->base#toggleTheme">
+    Toggle theme
+  </button>
 </nav>

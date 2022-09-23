@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#0000ff" >
   </head>
 
-  <body>
+  <body class="<%= 'dark' if DateTime.now.seconds_until_end_of_day < 18000 %>">
     <%= render "flash" %>
     <%= render "menu" %>
     <%= yield %>

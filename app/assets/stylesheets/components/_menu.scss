@@ -4,10 +4,12 @@
   top: 0;
   left: 0;
   font-weight: bold;
-  color: white;
   background-color: $primary;
   height: 40px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   li {
     margin-bottom: 10px;
@@ -18,9 +20,14 @@
     }
   }
 
-  .btn {
+  .menu-btn {
     display: block;
     margin-left: auto;
+  }
+
+  .theme-btn {
+    color: $light;
+    font-size: inherit;
   }
 
   @media only screen and (max-width: 991px) {
@@ -41,7 +48,7 @@
     width: min-content;
     min-height: 100vh;
 
-    .btn {
+    .menu-btn {
       display: none
     }
   }

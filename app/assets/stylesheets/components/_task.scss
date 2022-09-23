@@ -36,10 +36,11 @@
     position: absolute;
     top: 1px;
     right: 0;
-    background-color: $light;
+    background-color: $bg;
 
     button {
-      margin-left: 10px;
+      color: $text;
+      margin: 0 5px;
     }
   }
 

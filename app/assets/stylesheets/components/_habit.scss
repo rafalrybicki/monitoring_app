@@ -4,6 +4,7 @@
   max-width: 100%;
   overflow: auto;
   margin-top: 40px;
+  padding-left: 95px;
 
   .actions {
     position: sticky;
@@ -13,13 +14,19 @@
     height: 40px;
     width: 100%;
     text-align: center;
-    background-color: white;
+    background-color: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .active {
-      background-color: $neutral;
+    a {
+      color: $text;
+      padding: 3px;
+      border-radius: 2px;
+
+      &.active {
+        background-color: $neutral;
+      }
     }
   }
 
@@ -99,7 +106,7 @@
         }
 
         a {
-          color: $dark;
+          color: $text;
         }
       }
     }

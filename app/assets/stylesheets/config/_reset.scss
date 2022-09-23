@@ -13,7 +13,15 @@ html {
   width: 100%;
 }
 
+$bg: var(--bg-color);
+$text: var(--text-color);
+$primary: var(--primary-color);
+
 body {
+  --bg-color: #{$light};
+  --text-color: #{$dark};
+  --primary-color: #{$brand};
+
   display: flex;
   min-height: 100%;
   min-height: -webkit-fill-available;
@@ -22,6 +30,14 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  color: $text;
+  background-color: #{$bg};
+}
+
+body.dark {
+  --bg-color: #{$dark};
+  --text-color: #{$light};
+  --primary-color: #{$neutral};
 }
 
 .container {
@@ -48,5 +64,6 @@ h2 {
   .container {
     margin: 0 auto;
     padding-top: 20px;
+    max-width: 80%;
   }
 }

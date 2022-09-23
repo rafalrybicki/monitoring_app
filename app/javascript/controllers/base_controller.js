@@ -5,6 +5,10 @@ export default class extends Controller {
     document.getElementById('menu').classList.toggle('open');
   }
 
+  toggleTheme() {
+    document.querySelector('body').classList.toggle('dark');
+  }
+
   scrollToBottom() {
     document.querySelector('.container').scrollTop = 10000;
   }
