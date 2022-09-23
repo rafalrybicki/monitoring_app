@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get '/today', to: 'days#today'
 
+  get '/tasks', to: 'tasks#index'
+
   resources :days, only: %i[index show edit update] do
     resources :tasks, except: %i[index show] do
       member do

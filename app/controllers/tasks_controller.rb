@@ -1,6 +1,16 @@
 class TasksController < ApplicationController
-  before_action :set_day
-  before_action :set_task, except: %i[new create reschedule]
+  before_action :set_day, except: %i[index cancel]
+  before_action :set_task, only: %i[edit update destroy]
+
+  def index
+    @start_date = today
+    @end_date = @start_date + 7.days
+
+    tasks = current_user.tasks.order(:date).where('date >= ? AND date <= ?', @start_date, @end_date)
+
+    @days = Hash.new { |h, k| h[k] = [] }
+    tasks.each { |task| @days[task.date.to_fs] << task }
+  end
 
   def new
     @task = Task.new

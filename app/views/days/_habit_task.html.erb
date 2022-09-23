@@ -9,13 +9,13 @@
                                   class: "task__content",
                                   disabled: habit.date != today,
                                   method: :patch do %>
-      <%= bootstrap_icon (habit.date < today ? "x-square-fill" : habit.quantity >= habit.daily_target ? "check-square-fill" : "square") %>
+      <%= bootstrap_icon ((habit.date < today && habit.quantity < habit.daily_target) ? "x-square-fill" : habit.quantity >= habit.daily_target ? "check-square-fill" : "square") %>
       <%= habit.name %>
 
       <% if habit.daily_target > 1 %>
         <%= habit.quantity %>/<%= habit.daily_target %>
-        <% if habit.quantity > 0 && habit.quantity < habit.daily_target %>
-          <span class="progress" style="height: <%= 16 * (habit.quantity / habit.daily_target.to_f ) %>px"></span>
+        <% if habit.quantity > 0 && habit.quantity < habit.daily_target && habit.date == today %>
+          <span class="progress" style="height: <%= 14 * (habit.quantity / habit.daily_target.to_f ) %>px"></span>
         <% end %>
       <% end %>
     <% end %>

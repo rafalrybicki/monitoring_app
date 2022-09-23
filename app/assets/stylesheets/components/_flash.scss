@@ -1,7 +1,7 @@
 .flash {
   z-index: 101;
-  position: absolute;
-  top: 10px;
+  position: fixed;
+  top: 5px;
   left: 50%;
   transform: translateX(-50%);
   padding: 5px;

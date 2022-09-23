@@ -52,19 +52,16 @@
       color: inherit;
 
       .progress {
+        position: absolute;
+        bottom: calc(100% - 16px);
+        left: -22px;
         display: block;
         background-color: $success;
-        width: 16px;
+        width: 14px;
         position: absolute;
-        bottom: 1px;
-        left: 1px;
         z-index: 11;
       }
     }
-  }
-
-  a {
-    color: $primary;
   }
 
   &__habits {

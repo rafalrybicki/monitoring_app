@@ -4,10 +4,6 @@ class DaysController < ApplicationController
   before_action :set_habits, except: %i[index edit update]
   before_action :set_day_values, only: %i[show today]
 
-  def index
-    @days = current_user.days
-  end
-
   def show; end
 
   def edit; end

@@ -28,7 +28,7 @@
       </div>
     <% end %>
 
-    <%= turbo_frame_tag 'tasks' do %>
+    <%= turbo_frame_tag "tasks_#{@day.date}" do %>
       <h2>Tasks</h2>
 
       <%= render @tasks %>

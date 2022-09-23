@@ -1,0 +1,17 @@
+<div class="container tasks">
+  <h1>Upcoming tasks</h1>
+
+  <% (@start_date..@end_date).each do |date| %>
+    <%= turbo_frame_tag "tasks_#{date}" do %>
+      <h2>
+        <%= date %>
+      </h2>
+      <% @days[date.to_fs].each do |task| %>
+        <%= render task %>
+      <% end %>
+    <% end %>
+    <%= turbo_frame_tag Task.new do %>
+      <%= link_to "Add new task", new_day_task_path(date.to_fs) %>
+    <% end %>
+  <% end%>
+</div>
