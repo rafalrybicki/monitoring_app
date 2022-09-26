@@ -19,6 +19,10 @@
                                       :first) %>
     </p>
     <p>
+      <%= form.label :order %><br>
+      <%= form.number_field :order %>
+    </p>
+    <p>
       <%= form.submit data: { turbo_frame: "_top"} %>
     </p>
   <% end %>

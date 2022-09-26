@@ -63,7 +63,7 @@ class DaysController < ApplicationController
       ) as habit_items ON
         habits.id = habit_items.habit_id
       WHERE ? = ANY(habits.frequency)
-      ORDER BY habits.created_at
+      ORDER BY habits.order
     ', @day.date, @day.date.wday])
 
     @monitored = []
