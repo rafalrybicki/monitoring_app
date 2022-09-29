@@ -5,11 +5,17 @@
   input[type="text"] {
     margin-bottom: 10px;
     width: 100%;
+
   }
 
   a {
     position: absolute;
-    bottom: 0;
-    left: 90px
+    bottom: 7px;
+    left: 110px
+  }
+
+  input {
+    font-size: 16px;
+    padding: 5px;
   }
 }
