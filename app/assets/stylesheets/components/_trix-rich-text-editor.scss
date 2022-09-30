@@ -1,0 +1,9 @@
+  trix-toolbar {
+    position: sticky;
+    top: 0px;
+    background-color: $bg;
+
+    .trix-button {
+      background-color: $light;
+    }
+  }
